@@ -1,0 +1,60 @@
+\section{Spark (35 pts)}
+
+% \subquestion{(a)}
+In this question, you will improve your Spark programming skills and practice composing an algorithm into map and reduce functions. Implementing a simple friendship recommendation algorithm using Spark will also help you with the next assignments and the class project. 
+
+Write a Spark program that implements a simple ``People You Might Know'' social network friendship recommendation algorithm. The key idea is that if two people have a lot of mutual friends, then the system should recommend that they connect with each other.
+
+
+{\bf Data:} 
+\begin{itemize}
+    \item Associated data file is {\color{blue}{\tt soc-LiveJournal1Adj.txt}} in {\tt q1/data}.
+    \item The file contains the adjacency list and has multiple lines in the following format:
+
+{\tt \textless User\textgreater \textless TAB\textgreater \textless Friends\textgreater}
+
+Here, {\tt \textless User\textgreater} is a unique integer ID corresponding to a unique user and {\tt \textless Friends\textgreater} is a comma separated list of unique IDs corresponding to the friends of the user with the unique ID {\tt \textless User\textgreater}. Note that the friendships are mutual (i.e., edges are undirected): if $A$ is friend with $B$ then $B$ is also friend with $A$. The data provided is consistent with that rule as there is an explicit entry for each side of each edge.
+\end{itemize}
+
+
+{\bf Algorithm:} Let us use a simple algorithm such that, for each user $U$, the algorithm recommends $N=10$ users who are not already friends with $U$, but have the most number of mutual friends in common with $U$. 
+
+{\bf Output:} 
+\begin{itemize}
+    \item The output should contain one line per user in the following format:
+
+{\tt \textless User\textgreater\textless TAB\textgreater\textless Recommendations\textgreater}
+
+where {\tt \textless User\textgreater} is a unique ID corresponding to a user and {\tt \textless Recommendations\textgreater} is a comma separated list of unique IDs corresponding to the algorithm's recommendation of people that {\tt \textless User\textgreater} might know, ordered in decreasing number of mutual friends.
+    \item Even if a user has less than 10 second-degree friends, output all of them in decreasing order of the number of mutual friends. If a user has no friends, you can provide an empty list of recommendations. If there are recommended users with the same number of mutual friends, then output those user IDs in numerically ascending order.
+\end{itemize} 
+
+{\bf Pipeline sketch:} Please provide a description of how you used Spark to solve this problem. Don't write more than 3 to 4 sentences for this: we only want a very high-level description of your strategy to tackle this problem.
+
+{\bf Tips:} 
+\begin{itemize}
+    \item 
+    Before submitting a complete application to Spark, you may use the Shell to go line by line, checking the outputs of each step. Command {\tt .take(X)} should be helpful, if you want to check the first {\tt X} elements in the RDD.
+    \item 
+    For sanity check, your top 10 recommendations for \textbf{user ID 11} should be:\\ {\tt 27552,7785,27573,27574,27589,27590,27600,27617,27620,27667}.
+    \item 
+    The default memory assigned to the Spark runtime may not be enough to process this data file, depending on how you write your algorithm. If your Spark job fails with a message starting as:
+
+\begin{Verbatim}[fontsize=\scriptsize]
+17/12/28 10:50:35 INFO DAGScheduler: Job 0 failed: sortByKey at FriendsRecomScala.scala:45, took 519.084974 s
+Exception in thread "main" org.apache.spark.SparkException:
+Job aborted due to stage failure: Task 0 in stage 2.0 failed 1 times, most recent failure:
+Lost task 0.0 in stage 2.0 (TID 4, localhost, executor driver)
+\end{Verbatim}
+
+then you'll very likely need to increase the memory assigned to the Spark runtime.  If you are running in stand-alone mode (i.e. you did not setup a Spark cluster), use {\tt --driver-memory 8G} to set the runtime memory to 8GB. If you are running on a Spark cluster, use {\tt --executor-memory 8G} to set the memory to 8GB. 
+
+\end{itemize}
+
+
+\subsection*{What to submit}
+\begin{enumerate}[(1)]
+\item Upload your code in the q1 folder under homework-1.
+\item Include in your writeup a short paragraph sketching your spark pipeline.
+\item Include in your writeup the recommendations for the users with following user IDs: 924, 8941, 8942, 9019, 9020, 9021, 9022, 9990, 9992, 9993.
+\end{enumerate}

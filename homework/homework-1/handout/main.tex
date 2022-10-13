@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{url}
+\usepackage{color}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{algorithmic}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage{fancyvrb}
+
+\oddsidemargin  0in \evensidemargin 0in \topmargin -0.5in
+\headheight 0.25in \headsep 0.25in
+\textwidth   6.5in \textheight 9in 
+\parskip 1.5ex  \parindent 0ex \footskip 20pt
+
+\newcommand{\note}[1]{\textsf{{\textcolor{red}{[[#1]]}}}}
+\newcommand{\boxcomment}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}\medskip\\}
+
+\newcommand{\xhdr}[1]{\paragraph{\bf{#1}}}
+\newcommand{\subquestion}[1]{\subsubsection*{{#1}}}
+\newcommand{\Solution}[1]{\paragraph*{{#1}}}
+%%---------------------------------------------------------------------------
+%%      Theorems and other environments:
+%%---------------------------------------------------------------------------
+\newtheorem{thm}{Theorem}%[lecture]
+\newtheorem{prop}{Proposition}%[lecture]
+\newtheorem{lemma}{Lemma}%[lecture]
+\newtheorem{result}{Result}%[lecture]
+\newtheorem{cor}{Corollary}%[lecture]
+\newtheorem{claim}{Claim}%[lecture]
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+\newcounter{example}
+\newenvironment{example}[1][]
+ {\refstepcounter{example}{\bf Example~\arabic{example}~#1}}{}
+ \renewcommand{\theexample}{\arabic{example}}
+\newcounter{problem}
+\newenvironment{problem}[1][]
+ {\refstepcounter{problem}{\bf Problem~\arabic{lecture}.\arabic{problem}~#1}}{}
+ \renewcommand{\theproblem}{\arabic{lecture}.\arabic{problem}}
+
+\newcounter{definition}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcounter{algorithm}
+\newenvironment{algorithm}[1][]
+ {\refstepcounter{algorithm}{\bf Algorithm~\arabic{algorithm}~#1}}{}
+ \renewcommand{\thedefinition}{\arabic{algorithm}}
+
+%%%-----------------------------------------------------------------------------
+%%% Header
+\newfont{\bssten}{cmssbx10}
+\newfont{\bssnine}{cmssbx10 scaled 900}
+\newfont{\bssdoz}{cmssbx10 scaled 1200}
+\pagestyle{fancy}  
+ \fancyhead{\bssnine CSE547: Machine Learning for Big Data --- Problem Set 1}
+ \fancyhead[RE]{} \fancyhead[LO]{}
+ \fancyhead[LE]{\bssnine \arabic{page}} \fancyhead[RO]{\bssnine \arabic{page}}
+ \lfoot{} \cfoot{} \rfoot{}
+%%%-----------------------------------------------------------------------------
+%
+
+%%%-----------------------------------------------------------------------------
+%%% New math operators
+\DeclareMathOperator{\conf}{conf}
+\DeclareMathOperator{\lift}{lift}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Support}{Support}
+\DeclareMathOperator{\Sim}{sim}
+%%%-----------------------------------------------------------------------------
+
+\begin{document}
+\thispagestyle{empty}
+\boxcomment{
+{\bf \textsf{CSE547: Machine Learning for Big Data \hfill Spring 2021}}\medskip 
+
+\centerline{\LARGE \bf \textsf{Problem Set 1}}\medskip
+{\hfill Please read the \href{https://courses.cs.washington.edu/courses/cse547/21sp/faq.html}{homework submission policies}.\hfill}
+}
+
+%%-----------------------------------------------------------------------------
+\input{policies.tex}
+%% Questions
+\input{spark/spark}
+\input{association_rules/association_rules}
+\input{lsh/lsh}
+
+\end{document}
