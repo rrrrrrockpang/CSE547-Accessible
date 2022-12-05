@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Homework 4</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Homework 4</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#implementation-of-svm-via-gradient-descent-30-points"
+id="toc-implementation-of-svm-via-gradient-descent-30-points">Implementation
+of SVM via Gradient Descent (30 points) </a>
+<ul>
+<li><a href="#what-to-submit" id="toc-what-to-submit">What to
+submit</a></li>
+</ul></li>
+<li><a href="#data-streams-i-40-points"
+id="toc-data-streams-i-40-points">Data Streams I (40 points)</a>
+<ul>
+<li><a href="#a-3-points" id="toc-a-3-points">(a) [3 Points]</a></li>
+<li><a href="#b-4-points" id="toc-b-4-points">(b) [4 Points]</a></li>
+<li><a href="#c-11-points" id="toc-c-11-points">(c) [11 Points]</a></li>
+<li><a href="#d-11-points" id="toc-d-11-points">(d) [11 Points]</a></li>
+<li><a href="#e-11-points" id="toc-e-11-points">(e) [11 Points]</a></li>
+<li><a href="#what-to-submit-1" id="toc-what-to-submit-1">What to
+submit</a></li>
+</ul></li>
+<li><a href="#data-streams-ii-30-points"
+id="toc-data-streams-ii-30-points">Data Streams II (30 points)</a>
+<ul>
+<li><a href="#a-12-points" id="toc-a-12-points">(a) [12 Points]</a></li>
+<li><a href="#b-18-points" id="toc-b-18-points">(b) [18 Points]</a></li>
+<li><a href="#what-to-submit-2" id="toc-what-to-submit-2">What to
+submit</a></li>
+</ul></li>
+</ul>
+</nav>
+<p><br />
+</p>
+<h1
+id="implementation-of-svm-via-gradient-descent-30-points">Implementation
+of SVM via Gradient Descent (30 points) </h1>
+<p>Here, you will implement the soft margin SVM using different gradient
+descent methods as described in the section 12.3.4 of the textbook. To
+recap, given a dataset of <span class="math inline">\(n\)</span> samples
+<span class="math inline">\(\mathcal{D} = \left\{\left(\bm{x}^{(i)},
+y^{(i)}\right)\right\}_{i=1}^n\)</span>, where every <span
+class="math inline">\(d\)</span>-dimensional feature vector <span
+class="math inline">\(\bm{x}^{(i)} \in \mathbb{R}^d\)</span> is
+associated with a label <span class="math inline">\(y^{(i)} \in
+\{-1,1\}\)</span>, to estimate the parameters <span
+class="math inline">\(\bm{\theta} = (\bm{w}, b)\)</span> of the soft
+margin SVM, we can minimize the loss function: <span
+class="math display">\[\begin{aligned}
+f(\bm{w},b; \mathcal{D}) &amp;= \frac{1}{2} \|\bm{w}\|_2^2 + C
+\sum_{(\bm{x}^{(i)}, y^{(i)}) \in \mathcal{D}} \max\left\{0, 1 -
+y^{(i)}( \bm{w}\cdot \bm{x}^{(i)} + b )\right\} \\
+&amp;= \frac{1}{2} \|\bm{w}\|_2^2 + C \sum_{(\bm{x}^{(i)}, y^{(i)}) \in
+\mathcal{D}} L(\bm{x}^{(i)}, y^{(i)}; \bm{\theta})
+\end{aligned}\]</span></p>
+<p>In order to minimize the function, we first obtain the gradient with
+respect to <span class="math inline">\(\bm{\theta}\)</span>. The partial
+derivative with respect to <span class="math inline">\(w_j\)</span>, the
+<span class="math inline">\(j\)</span>-th entry in the vector <span
+class="math inline">\(\bm{w}\)</span>, is:</p>
+<p><span class="math display">\[\begin{aligned}
+\label{eq:grad_w}
+    \partial_{w_j} f(\bm{w},b; \mathcal{D}) =
+    \frac{\partial f(\bm{w},b; \mathcal{D})}{\partial w_j} =
+    w_j + C \sum_{(\bm{x}^{(i)}, y^{(i)}) \in \mathcal{D}}
+\frac{\partial L(\bm{x}^{(i)}, y^{(i)}; \bm{\theta})}{\partial w_j}
+\end{aligned}\]</span> where <span
+class="math display">\[\begin{aligned}
+\frac{\partial L(\bm{x}^{(i)}, y^{(i)}; \bm{\theta})}{\partial w_j}
+=     
+\left\{\begin{array}{cl}
+      0 &amp; \text{if}\  y^{(i)}\left(\bm{w} \cdot \bm{x}^{(i)} + b
+\right) \ge 1 \\
+      -y^{(i)}x_j^{(i)} &amp; \text{otherwise.}
+    \end{array}\right.
+\end{aligned}\]</span></p>
+<p>and the partial derivative with respect to <span
+class="math inline">\(b\)</span> is: <span
+class="math display">\[\begin{aligned}
+\label{eq:grad_b}
+\partial_b f(\bm{w},b;\mathcal{D})  =
+\frac{\partial f(\bm{w},b;\mathcal{D})}{\partial b} =
+C \sum_{(\bm{x}^{(i)}, y^{(i)}) \in \mathcal{D}} \frac{\partial
+L(\bm{x}^{(i)}, y^{(i)}; \bm{\theta})}{\partial b}
+\end{aligned}\]</span> where <span
+class="math display">\[\begin{aligned}
+\frac{\partial L(\bm{x}^{(i)}, y^{(i)}; \bm{\theta})}{\partial b} =     
+\left\{\begin{array}{cl}
+      0 &amp; \text{if}\  y^{(i)}\left(\bm{w} \cdot \bm{x}^{(i)} + b
+\right) \ge 1 \\
+      -y^{(i)} &amp; \text{otherwise.}
+    \end{array}\right.
+\end{aligned}\]</span> Since the direction of the gradient is the
+direction of steepest ascent of the loss function, gradient descent
+proceeds by iteratively taking small steps along the direction opposite
+to the direction of gradient. The general framework of gradient descent
+is given in Algorithm <a href="#alg:svm" data-reference-type="ref"
+data-reference="alg:svm">[alg:svm]</a>.</p>
+<div class="algorithm">
+<p><span id="alg:svm" label="alg:svm"></span></p>
+<p><strong>Parameters:</strong> learning rate <span
+class="math inline">\(\eta\)</span>, batch size <span
+class="math inline">\(\beta\)</span>.</p>
+<hr />
+<div class="algorithmic">
+<p>Randomly shuffle the training data <span class="math inline">\(k
+\gets 0\)</span> <span class="math inline">\(B \gets
+\left\{\left(x^{(i)}, y^{(i)}\right) : \beta k+1 \leq i \leq
+\min\{\beta(k+1), n\}\right\}\)</span> <span
+class="math inline">\(w_j^{(t)} \gets w_j^{(t-1)} - \eta \cdot
+\partial_{w_j} f(\bm{w}^{(t-1)},b^{(t-1)}; B)\)</span> <span
+class="math inline">\(b^{(t)} \gets b^{(t-1)} - \eta \cdot \partial_{b}
+f(\bm{w}^{(t-1)}, b^{(t-1)}; B)\)</span> <span class="math inline">\(k
+\leftarrow (k + 1 \mod \lceil n/\beta \rceil)\)</span>
+<strong>break</strong></p>
+</div>
+</div>
+<p><span><strong>Task:</strong></span> Implement the SVM algorithm using
+the following gradient descent variants.</p>
+<p>For all the variants use <span class="math inline">\({C =
+100}\)</span>, <span class="math inline">\(\bm{w}^{(0)} =
+\bm{0}\)</span>, <span class="math inline">\(b^{(0)} = 0\)</span>. For
+all other parameters, use the values specified in the description of the
+variant.</p>
+<p><strong>Note:</strong> update the parameters <span
+class="math inline">\(\bm{w}\)</span> and <span
+class="math inline">\(b\)</span> on iteration <span
+class="math inline">\(t\)</span> using the values computed on iteration
+<span class="math inline">\(t-1\)</span>. Do not update using values
+computed in the current iteration!</p>
+<ol>
+<li><p><strong>Batch Gradient Descent (BGD)</strong>: When the <span
+class="math inline">\(\beta = n\)</span>, in every iteration the
+algorithm uses the entire dataset to compute the gradient and update the
+parameters.</p>
+<p>As a <span><em>convergence criterion</em></span> for batch gradient
+descent we will use <span class="math inline">\(\Delta_{\% loss}^{(t)}
+&lt; \varepsilon\)</span>, where <span
+class="math display">\[\begin{aligned}
+    \Delta_{\% loss }^{(t)} = \frac{|f(\bm{w}^{(t-1)}, b^{(t-1)};
+\mathcal{D}) - f(\bm{w}^{(t)}, b^{(t)}; \mathcal{D})|}{f(\bm{w}^{(t-1)},
+b^{(t-1)}; \mathcal{D})}\times100
+    \label{eq:stop}
+    
+\end{aligned}\]</span></p>
+<p>Set <span class="math inline">\(\eta = 3\cdot10^{-7}\)</span>, <span
+class="math inline">\(\varepsilon = 0.25\)</span>.</p></li>
+<li><p><strong>Stochastic Gradient Descent (SGD)</strong>: When <span
+class="math inline">\(\beta = 1\)</span>, in every iteration the
+algorithm uses one training sample at a time to compute the gradient and
+update the parameters.</p>
+<p>As a <span><em>convergence criterion</em></span> for stochastic
+gradient descent we will use <span
+class="math inline">\(\Delta_{loss}^{(t)} &lt; \varepsilon\)</span>,
+where <span class="math display">\[\begin{aligned}
+    \Delta_{loss}^{(t)} = \tfrac{1}{2}\Delta_{loss}^{(t-1)} +
+\tfrac{1}{2}\Delta_{\% loss}^{(t)},
+    \label{eq:svm-loss}
+    
+\end{aligned}\]</span> <span class="math inline">\(t\)</span> is the
+iteration number, <span class="math inline">\(\Delta_{\%
+loss}^{(t)}\)</span> is same as above (equation <a href="#eq:stop"
+data-reference-type="ref" data-reference="eq:stop">[eq:stop]</a>) and
+and <span class="math inline">\(\Delta_{loss}^{(0)} = 0\)</span>.</p>
+<p>Use <span class="math inline">\(\eta = 0.0001\)</span>, <span
+class="math inline">\(\varepsilon = 0.001\)</span>.</p></li>
+<li><p><strong>Mini-Batch Gradient Descent (MBGD)</strong>: In every
+iteration the algorithm uses mini-batches of <span
+class="math inline">\(\beta\)</span> samples to compute the gradient and
+update the parameters.</p>
+<p>As a <span><em>convergence criterion</em></span> for mini-batch
+gradient descent we will use <span
+class="math inline">\(\Delta_{loss}^{(t)} &lt; \varepsilon\)</span>,
+where <span class="math inline">\(\Delta_{loss}^{(t)}\)</span> is the
+same as above (equation <a href="#eq:svm-loss" data-reference-type="ref"
+data-reference="eq:svm-loss">[eq:svm-loss]</a>) and <span
+class="math inline">\(\Delta_{loss}^{(0)} = 0\)</span></p>
+<p>Use <span class="math inline">\(\eta = 10^{-5}\)</span>, <span
+class="math inline">\(\varepsilon = 0.01\)</span> and <span
+class="math inline">\(\beta = 20\)</span>.</p></li>
+</ol>
+<p><span><strong>Task:</strong></span> Run your implementation on the
+data set in <code>svm/data</code>. The data set contains the following
+files :</p>
+<ol>
+<li><p><span style="color: blue"><code>features.txt</code></span> : Each
+line contains the features (comma-separated values) of a single sample.
+It has 6414 samples (rows) and 122 features (columns).</p></li>
+<li><p><span style="color: blue"><code>target.txt</code></span> : Each
+line contains the target variable (y = -1 or 1) for the corresponding
+row in <code>features.txt</code>.</p></li>
+</ol>
+<p><span><strong>Task:</strong></span> Plot the value of the loss
+function <span class="math inline">\(f(\bm{w}^{(t)},b^{(t)};
+\mathcal{D})\)</span> vs. the iteration number <span
+class="math inline">\(t\)</span> starting from <span
+class="math inline">\(t=0\)</span>. Report the total time (wall clock
+time, as opposed to the number of iterations) each of the gradient
+descent variants takes to converge. What do you infer from the plots and
+the time for convergence?</p>
+<p>The diagram should have graphs from all the three variants on the
+same plot.</p>
+<p>As a sanity check, Batch GD should converge in 10-300 iterations and
+SGD between 500-3000 iterations with Mini Batch GD somewhere in-between.
+However, the number of iterations may vary greatly due to randomness. If
+your implementation consistently takes longer, it may have a bug.</p>
+<h2 class="unnumbered" id="what-to-submit">What to submit</h2>
+<ol type="i">
+<li><p>Plot of <span class="math inline">\(f(\bm{w}^{(t)},b^{(t)};
+\mathcal{D})\)</span> vs. the number of updates (<span
+class="math inline">\(t\)</span>). Total time taken for convergence by
+each of the gradient descent variants. Interpretation of plot and
+convergence times. [part (a)]</p></li>
+<li><p>Submit the code to Gradescope. [part (a)]</p></li>
+</ol>
+<h1 id="data-streams-i-40-points">Data Streams I (40 points)</h1>
+<p>You are an astronomer at the Space Telescope Science Institute in
+Baltimore, Maryland, in charge of the <em>petabytes</em> of imaging data
+they recently <a
+href="https://phys.org/news/2019-01-world-largest-digital-sky-survey.html">obtained</a>.
+According to the news report linked in the previous sentence,
+“<em>...The amount of imaging data is equivalent to two billion selfies,
+or 30,000 times the total text content of Wikipedia. The catalog data is
+15 times the volume of the Library of Congress.</em>”</p>
+<p>This data stream has images of everything out there in the universe,
+ranging from stars, galaxies, asteroids, to all kinds of awesome
+exploding/moving objects. Your task is to determine the approximate
+frequencies of occurrences of different (unique) items in this data
+stream.</p>
+<p>We now introduce our notation for this problem. Let <span
+class="math inline">\(S = \langle a_1, a_2, \ldots, a_t \rangle\)</span>
+be the given data stream of length <span
+class="math inline">\(t\)</span>. Let us denote the items in this data
+stream as being from the set <span class="math inline">\(\{1, 2, \ldots,
+n\}\)</span>. For any <span class="math inline">\(1\leq i\leq
+n\)</span>, we denote <span class="math inline">\(F[i]\)</span> to be
+the number of times <span class="math inline">\(i\)</span> has appeared
+in <span class="math inline">\(S\)</span>. Our goal is then to have good
+approximations of the values <span class="math inline">\(F[i]\)</span>
+for all <span class="math inline">\(1\leq i\leq n\)</span> at all
+times.</p>
+<p>The naïve way to do this is to just keep the counts for each item
+<span class="math inline">\(1\leq i\leq n\)</span> separately. However,
+this will require <span class="math inline">\(\mathcal{O}(n)\)</span>
+space which, in our application, is clearly infeasible. We shall see
+that it is possible to approximate these counts using a much smaller
+amount of space. To do so, we consider the algorithm explained
+below.</p>
+<p><strong>Algorithm.</strong> The algorithm has two parameters <span
+class="math inline">\(\delta\)</span> and <span
+class="math inline">\(\varepsilon &gt;0\)</span>, and <span
+class="math inline">\(\left\lceil
+\log\frac{1}{\delta}\right\rceil\)</span> <em>independent</em> hash
+functions <span class="math display">\[h_j:\{1,2,\ldots, n\} \rightarrow
+\{1,2, \ldots, \left\lceil \frac{e}{\varepsilon}
+\right\rceil\}.\]</span> Note that in this problem, <span
+class="math inline">\(\log\)</span> denotes the natural logarithm. For
+each bucket <span class="math inline">\(b\)</span> of each hash function
+<span class="math inline">\(j\)</span>, the algorithm has a counter
+<span class="math inline">\(c_{j, b}\)</span> that is initialized to
+zero.</p>
+<p>As each element <span class="math inline">\(i\)</span> arrives in the
+data stream, it is hashed by each of the hash functions, and the count
+for the <span class="math inline">\(j\)</span>-th hash function <span
+class="math inline">\(c_{j, h_j(i)}\)</span> is incremented by <span
+class="math inline">\(1\)</span>.</p>
+<p>For any <span class="math inline">\(1\leq i\leq n\)</span>, we define
+<span class="math inline">\(\widetilde{F}[i] = \min_{j}
+\{c_{j,h_j(i)}\}\)</span> as our estimate of <span
+class="math inline">\(F[i]\)</span>.</p>
+<p><strong>Task</strong>. The goal is to show that <span
+class="math inline">\(\widetilde{F}[i]\)</span> as defined above
+provides a good estimate of <span
+class="math inline">\(F[i]\)</span>.</p>
+<h3 class="unnumbered" id="a-3-points">(a) [3 Points]</h3>
+<p>What is the memory usage of this algorithm (in Big-<span
+class="math inline">\(\mathcal{O}\)</span> notation)? Give a one or two
+line justification for the value you provide.</p>
+<h3 class="unnumbered" id="b-4-points">(b) [4 Points]</h3>
+<p>Justify that for any <span class="math inline">\(1\leq i\leq
+n\)</span>: <span class="math display">\[\widetilde{F}[i]\geq
+F[i].\]</span></p>
+<h3 class="unnumbered" id="c-11-points">(c) [11 Points]</h3>
+<p>Prove that for any <span class="math inline">\(1\leq i\leq n\)</span>
+and <span class="math inline">\(1\leq j\leq \lceil
+\log(\frac{1}{\delta})\rceil\)</span>: <span
+class="math display">\[\mathbb{E}\left[c_{j,h_j(i)}\right] \leq F[i] +
+\frac{\varepsilon}{e} t,\]</span> where, as mentioned, <span
+class="math inline">\(t\)</span> is the length of the stream.</p>
+<h3 class="unnumbered" id="d-11-points">(d) [11 Points]</h3>
+<p>Prove that: <span
+class="math display">\[\mathbb{P}\left[\widetilde{F}[i] \leq F[i] +
+\varepsilon t\right] \geq 1-\delta.\]</span> <span><em>Hint:</em></span>
+Use Markov inequality and the independence of hash functions.</p>
+<p>Based on the proofs in parts (b) and (d), it can be inferred that
+<span class="math inline">\(\widetilde{F}[i]\)</span> is a good
+approximation of <span class="math inline">\(F[i]\)</span> for any item
+<span class="math inline">\(i\)</span> such that <span
+class="math inline">\(F[i]\)</span> is not very small (compared to <span
+class="math inline">\(t\)</span>). In many applications (<em>e.g.</em>,
+when the values <span class="math inline">\(F[i]\)</span> have a
+heavy-tail distribution), we are indeed only interested in approximating
+the frequencies for items which are not too infrequent. We next consider
+one such application.</p>
+<h3 class="unnumbered" id="e-11-points">(e) [11 Points]</h3>
+<h4 id="warning.">Warning.</h4>
+<p>This implementation question requires substantial computation time
+Python implementation reported to take 15min - 1 hour. Therefore, we
+advise you to start early.</p>
+<h4 id="dataset.">Dataset.</h4>
+<p>The dataset in <strong>streams/data</strong> contains the following
+files:</p>
+<ol>
+<li><p><span style="color: blue"><code>words_stream.txt</code></span>
+Each line of this file is a number, corresponding to the ID of a word in
+the stream.</p></li>
+<li><p><span style="color: blue"><code>counts.txt</code></span> Each
+line is a pair of numbers separated by a tab. The first number is an ID
+of a word and the second number is its associated exact frequency count
+in the stream.</p></li>
+<li><p><span
+style="color: blue"><code>words_stream_tiny.txt</code></span> and <span
+style="color: blue"><code>counts_tiny.txt</code></span> are smaller
+versions of the dataset above that you can use for debugging your
+implementation.</p></li>
+<li><p><span style="color: blue"><code>hash_params.txt</code></span>
+Each line is a pair of numbers separated by a tab, corresponding to
+parameters <span class="math inline">\(a\)</span> and <span
+class="math inline">\(b\)</span> which you may use to define your own
+hash functions (See explanation below).</p></li>
+</ol>
+<h4 id="instructions.">Instructions.</h4>
+<p>Implement the aforementioned algorithm and run it on the dataset with
+parameters <span class="math inline">\(\delta = e^{-5}\)</span>, <span
+class="math inline">\(\varepsilon = e\times 10^{-4}\)</span>. (Note:
+with this choice of <span class="math inline">\(\delta\)</span> you will
+be using 5 hash functions - the 5 pairs <span
+class="math inline">\((a,b)\)</span> that you’ll need for the hash
+functions are in <code>hash_params.txt</code>). Then for each distinct
+word <span class="math inline">\(i\)</span> in the dataset, compute the
+relative error <span class="math inline">\(E_r[i] =
+\frac{\widetilde{F}[i] - F[i]}{F[i]}\)</span> and plot these values as a
+function of the exact word frequency <span
+class="math inline">\(\frac{F[i]}{t}\)</span>. <strong>You do not have
+to implement the algorithm in Spark.</strong></p>
+<p>The plot should use a logarithm scale both for the <span
+class="math inline">\(x\)</span> and the <span
+class="math inline">\(y\)</span> axes, and there should be ticks to
+allow reading the powers of 10 (e.g. <span
+class="math inline">\(10^{-1}\)</span>, <span
+class="math inline">\(10^0\)</span>, <span
+class="math inline">\(10^1\)</span> etc...). The plot should have a
+title, as well as the <span class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span> axis labels. The exact frequencies
+<span class="math inline">\(F[i]\)</span> should be read from the counts
+file. Note that words of low frequency can have a very large relative
+error. That is not a bug in your implementation, but just a consequence
+of the bound we proved in question (a).</p>
+<p>Answer the following question by reading values from your plot: What
+is an approximate condition on a word frequency in the document to have
+a relative error below <span class="math inline">\(1 = 10^0\)</span>
+?</p>
+<h4 id="hash-functions.">Hash functions.</h4>
+<p>You may use the following hash function (see example pseudocode),
+with <span class="math inline">\(p = 123457\)</span>, <span
+class="math inline">\(a\)</span> and <span
+class="math inline">\(b\)</span> values provided in the hash params file
+and <code>n_buckets</code> (which is equivalent to <span
+class="math inline">\(\left\lceil \frac{e}{\varepsilon}
+\right\rceil\)</span>) chosen according to the specification of the
+algorithm. In the provided file, each line gives you <span
+class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>
+values to create one hash function.</p>
+<pre><code># Returns hash(x) for hash function given by parameters a, b, p and n_buckets
+def hash_fun(a, b, p, n_buckets, x) {
+    y = x [modulo] p
+    hash_val = (a*y + b) [modulo] p
+    return hash_val [modulo] n_buckets
+}</code></pre>
+<p>Note: This hash function implementation produces outputs of value
+from <span class="math inline">\(0\)</span> to <span
+class="math inline">\((\texttt{n\_buckets}-1)\)</span>, which is
+different from our specification in the <strong>Algorithm</strong> part.
+You can either keep the range as <span class="math inline">\(\{0, ...,
+\texttt{n\_buckets}-1\}\)</span>, or add 1 to the hash result so the
+value range becomes <span class="math inline">\(\{1, ...,
+\texttt{n\_buckets}\}\)</span>, as long as you stay consistent within
+your implementation.</p>
+<h2 class="unnumbered" id="what-to-submit-1">What to submit</h2>
+<ol type="i">
+<li><p>Expression for the memory usage of the algorithm and
+justification. [part (a)]</p></li>
+<li><p>Proofs for parts (b)-(d).</p></li>
+<li><p>Log-log plot of the relative error as a function of the
+frequency. An approximate condition on a word frequency to have a
+relative error below 1. [part (e)]</p></li>
+<li><p>Submit the code to Gradescope. [part (e)]</p></li>
+</ol>
+<h1 id="data-streams-ii-30-points">Data Streams II (30 points)</h1>
+<p>We are in the same setup as the previous part, working with the
+stream <span class="math inline">\(S = \langle a_1, a_2, \hdots,
+a_t\rangle\)</span> consisting of items from the set <span
+class="math inline">\(\{1, 2, \hdots, n\}\)</span>; the frequency of
+element <span class="math inline">\(i\)</span> is again denoted by <span
+class="math inline">\(F(i)\)</span>. Impressed by the quality of your
+estimator for frequency of occurences of different objects in the
+telescope’s data stream, you have been now tasked with estimating more
+sophisticated summary statistics from this stream. We’ll now explore how
+to estimate the sum of <em>squared</em> frequencies of all the items in
+the data stream. That is, we wish to estimate <span
+class="math inline">\(M = \sum_{i = 1}^n F(i)^2\)</span>. Here’s a
+proposed algorithm.</p>
+<p><strong>Algorithm</strong>.</p>
+<ul>
+<li><p>Fix a function <span class="math inline">\(h:[n] \rightarrow
+\{\pm 1\}\)</span> that associates each item in the data stream with a
+random sign.</p></li>
+<li><p>Initialize <span class="math inline">\(Z = 0\)</span>.</p></li>
+<li><p>Every time an element <span class="math inline">\(j\)</span>
+appears in the data stream, add <span
+class="math inline">\(h(j)\)</span> to <span
+class="math inline">\(Z\)</span>. That is, increment <span
+class="math inline">\(Z\)</span> if <span class="math inline">\(h(j) =
++1\)</span> and decrement <span class="math inline">\(Z\)</span> if
+<span class="math inline">\(h(j)= -1\)</span>.</p></li>
+<li><p>After processing all the <span class="math inline">\(t\)</span>
+elements in the data stream, return the estimate <span
+class="math inline">\(X = Z^2\)</span></p></li>
+</ul>
+<p>Note that since we fix <span class="math inline">\(h\)</span>
+<em>before</em> we receive the data stream, an element <span
+class="math inline">\(j\)</span> is treated consistently every time it
+shows up: <span class="math inline">\(Z\)</span> is either incremented
+every time <span class="math inline">\(j\)</span> shows up or is
+decremented every time <span class="math inline">\(j\)</span> shows up.
+In the end, element <span class="math inline">\(j\)</span> contributes
+<span class="math inline">\(h(j)\cdot F(j)\)</span> to the final value
+of <span class="math inline">\(Z\)</span>.</p>
+<h3 class="unnumbered" id="a-12-points">(a) [12 Points]</h3>
+<p>Prove that <span class="math display">\[\mathbb{E}_h [X] =
+M\]</span></p>
+<h3 class="unnumbered" id="b-18-points">(b) [18 Points]</h3>
+<p>Prove that <span class="math display">\[\operatorname{Var}(X) \leq
+4M^2\]</span> Note that this bound is not at all tight. A tighter bound
+can be easily obtained by a more careful derivation similar to the one
+required for proving the requested bound.</p>
+<p>Thus, part (a) shows that the estimator designed in the given
+algorithm is <em>unbiased</em>, while part (b) gives a bound on its
+variance.</p>
+<h2 class="unnumbered" id="what-to-submit-2">What to submit</h2>
+<ol type="i">
+<li><p>Proof that <span class="math inline">\(\mathbb{E}_h [X] =
+M\)</span>. [parts (a)]</p></li>
+<li><p>Proof that <span class="math inline">\(\operatorname{Var}(X) \leq
+4M^2\)</span>. [part (b)]</p></li>
+</ol>
+</body>
+</html>

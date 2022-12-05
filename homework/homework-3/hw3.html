@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Homework 3</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Homework 3</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#dead-ends-in-pagerank-computations-25-points"
+id="toc-dead-ends-in-pagerank-computations-25-points">Dead Ends in
+PageRank Computations (25 points)</a>
+<ul>
+<li><a href="#what-to-submit" id="toc-what-to-submit">What to
+submit</a></li>
+</ul></li>
+<li><a href="#q:louvain" id="toc-q:louvain">The Louvain Algorithm for
+Community Detection (35 points)</a>
+<ul>
+<li><a href="#what-to-submit-1" id="toc-what-to-submit-1">What to
+submit</a></li>
+</ul></li>
+<li><a href="#spectral-clustering-40-points"
+id="toc-spectral-clustering-40-points">Spectral Clustering (40
+points)</a>
+<ul>
+<li><a href="#a-establishing-some-basics-20-points"
+id="toc-a-establishing-some-basics-20-points">(a) Establishing Some
+Basics [20 points]</a></li>
+<li><a href="#b-normalized-cut-minimization-11-points"
+id="toc-b-normalized-cut-minimization-11-points">(b) Normalized Cut
+Minimization [11 points]</a></li>
+<li><a href="#c-relating-modularity-to-cuts-and-volumes-9-points"
+id="toc-c-relating-modularity-to-cuts-and-volumes-9-points">(c) Relating
+Modularity to Cuts and Volumes [9 points]</a></li>
+<li><a href="#what-to-submit-2" id="toc-what-to-submit-2">What to
+submit</a></li>
+</ul></li>
+</ul>
+</nav>
+<p><br />
+</p>
+<h1 id="dead-ends-in-pagerank-computations-25-points">Dead Ends in
+PageRank Computations (25 points)</h1>
+<p>Suppose we denote the matrix of the Internet as the <span
+class="math inline">\(n\)</span>-by-<span
+class="math inline">\(n\)</span> matrix <span
+class="math inline">\(M\)</span>, where <span
+class="math inline">\(n\)</span> is the number of webpages. Suppose
+there are <span class="math inline">\(k\)</span> links out of the node
+(webpage) <span class="math inline">\(j\)</span>, and <span
+class="math display">\[M_{ij} =
+    \left\{
+        \begin{array}{lll}
+            1/k &amp; \mbox{ if } \text{there is a link from $j$ to $i$}
+\\
+            0 &amp; \mbox{ } \text{otherwise}
+        \end{array}
+    \right.\]</span> For a webpage <span
+class="math inline">\(j\)</span> that is a <em>dead end</em> (i.e., one
+having zero links out), the column <span
+class="math inline">\(j\)</span> is all zeroes.</p>
+<p>Let <span class="math inline">\({\bf r}=
+[r_1,r_2,\ldots,r_n]^\top\)</span> be <em>an estimate</em> of the
+PageRank vector. In one iteration of the PageRank algorithm, we compute
+the next estimate <span class="math inline">\({\bf r}&#39;\)</span> of
+the PageRank as: <span class="math inline">\({\bf r}&#39; = M{\bf
+r}\)</span>.</p>
+<p>Given any PageRank estimate vector <span class="math inline">\({\bf
+r}\)</span>, define <span class="math inline">\(w({\bf r}) =
+\sum_{i=1}^n r_i\)</span>.</p>
+<ol type="a">
+<li><p><strong>[6pts]</strong> Suppose the Web has no dead ends. Prove
+that <span class="math inline">\(w({\bf r}&#39;) = w({\bf
+r})\)</span>.</p></li>
+<li><p><strong>[9pts]</strong> Suppose there are still no dead ends, but
+we use a teleportation probability of <span
+class="math inline">\(1-\beta\)</span>, where <span
+class="math inline">\(0&lt;\beta&lt;1\)</span>. The expression for the
+next estimate of <span class="math inline">\(r_i\)</span> becomes <span
+class="math inline">\(r&#39;_i = \beta \sum_{j=1}^n M_{ij} r_j +
+(1-\beta)/n\)</span>. Under what circumstances will <span
+class="math inline">\(w({\bf r}&#39;) = w({\bf r})\)</span>? Prove your
+conclusion.</p></li>
+<li><p><strong>[10pts]</strong> Now, let us assume a teleportation
+probability of <span class="math inline">\(1-\beta\)</span> in addition
+to the fact that there are one or more dead ends. Call a node “dead” if
+it is a dead end and “live” if not. Assume <span
+class="math inline">\(w({\bf r}) = 1\)</span>. At each iteration, when
+not teleporting, each live node <span class="math inline">\(j\)</span>
+distributes <span class="math inline">\(\beta r_j\)</span> PageRank
+uniformly across each of the nodes it links to, and each dead node <span
+class="math inline">\(j\)</span> distributes <span
+class="math inline">\(r_j / n\)</span> PageRank to all the nodes.</p>
+<p>Write the equation for <span class="math inline">\(r&#39;_i\)</span>
+in terms of <span class="math inline">\(\beta\)</span>, <span
+class="math inline">\(M\)</span>, <span class="math inline">\({\bf
+r}\)</span>, <span class="math inline">\(n\)</span>, and <span
+class="math inline">\(D\)</span> (where <span
+class="math inline">\(D\)</span> is the set of dead nodes). Then, prove
+that <span class="math inline">\(w({\bf r}&#39;)= 1\)</span>.</p></li>
+</ol>
+<h2 class="unnumbered" id="what-to-submit">What to submit</h2>
+<ol type="i">
+<li><p>Proof [1(a)]</p></li>
+<li><p>Condition for <span class="math inline">\(w({\bf r}&#39;) =
+w({\bf r})\)</span> and Proof [1(b)]</p></li>
+<li><p>Equation for <span class="math inline">\(r&#39;_i\)</span> and
+Proof [1(c)]</p></li>
+</ol>
+<h1 id="q:louvain">The Louvain Algorithm for Community Detection (35
+points)</h1>
+<p><strong>Note:</strong> For this question, assume all graphs are
+undirected and weighted.</p>
+<p>Communities, or clusters of densely linked nodes in a graph, are
+important elements of a graph’s structure. Thus, discovering communities
+from an observed graph can help us summarize the overall structure of a
+graph and learn more about the underlying process. However, finding the
+“best" set of communities from data is often a difficult problem. One
+way to measure how well a network is partitioned into communities is to
+calculate the number of within-community edges relative to the number of
+between-community edges. This can be formalized using
+<em>modularity</em>, defined as:</p>
+<p><span class="math display">\[Q=\frac{1}{2 m} \sum_{1 \leq i, j \leq
+n}\left(\left[A_{i j}-\frac{d_{i} d_{j}}{2 m}\right] \delta\left(c_{i},
+c_{j}\right)\right)\]</span></p>
+<p>Where <span class="math inline">\(A\)</span> is the adjacency matrix
+of a graph <span class="math inline">\(G\)</span> with <span
+class="math inline">\(n\)</span> vertices and <span
+class="math inline">\(m\)</span> edges, <span
+class="math inline">\(A_{ij}\)</span> is the <span
+class="math inline">\((i, j)\)</span>-th entry of <span
+class="math inline">\(A\)</span>, <span class="math inline">\(2m =
+\sum_{i,j} A_{i j}\)</span> is the sum of all entries in <span
+class="math inline">\(A\)</span>, <span
+class="math inline">\(d_i\)</span> is the degree of node <span
+class="math inline">\(i\)</span>, <span
+class="math inline">\(\delta\)</span> is the Kronecker delta, i.e. <span
+class="math inline">\(\delta(k,l) = 1\)</span> when <span
+class="math inline">\(k = l\)</span>, otherwise - <span
+class="math inline">\(\delta(k,l) = 0\)</span>, and <span
+class="math inline">\(c_i\)</span> and <span
+class="math inline">\(c_j\)</span> are the communities of <span
+class="math inline">\(i\)</span> and <span
+class="math inline">\(j\)</span> respectively. Here, we assume that
+communities are disjoint, i.e. each node can only belong to one
+community. The modularity of a graph lies in the range <span
+class="math inline">\([-1, 1]\)</span>.</p>
+<p>Maximizing the modularity of a given graph is a computationally hard
+problem. The Louvain algorithm is a popular and efficient heuristic used
+to solve this problem. It is a greedy algorithm, meaning that at every
+step, it will take the path that provides the largest possible increase
+to the objective (modularity) at that step. Each pass of the algorithm
+has two phases:</p>
+<ul>
+<li><p><strong>Phase 1 (Modularity Optimization)</strong> aims to group
+nodes in the graph <span class="math inline">\(G\)</span> into
+communities in a way that maximizes the modularity of the graph. After
+the first pass, the input graph to this step is the graph produced by
+phase 2 in the previous pass (see below).</p></li>
+<li><p><strong>Phase 2 (Community Aggregation)</strong> combines each
+community into a single node, producing a new graph <span
+class="math inline">\(H\)</span> where each node represents a community
+of nodes in the graph <span class="math inline">\(G\)</span>. This new
+graph <span class="math inline">\(H\)</span> is fed into phase 1 in the
+next pass of the algorithm.</p></li>
+</ul>
+<p>We repeat these two phases until we no longer increase modularity
+through one pass. The algorithm proceeds as follows:</p>
+<div class="algorithm">
+<div class="algorithmic">
+<p>a graph <span class="math inline">\(G = (V, E)\)</span> with a vertex
+set <span class="math inline">\(V\)</span> and an edge set <span
+class="math inline">\(E\)</span>. a partition of <span
+class="math inline">\(G\)</span> into communities.</p>
+<hr />
+<p>Initialize each node <span class="math inline">\(i\)</span> as its
+own community <span class="math inline">\(\mathcal{N}_i \gets\)</span>
+the set of neighbors of <span class="math inline">\(i\)</span> in <span
+class="math inline">\(G\)</span> <span class="math inline">\(\Delta Q_j
+\gets\)</span> the change in modularity when <span
+class="math inline">\(i\)</span> is assigned to the community of <span
+class="math inline">\(j\)</span> <span class="math inline">\(j^*
+\gets\)</span> the neighbor that gives the most positive change in
+modularity <span class="math inline">\(\Delta Q_{j^*}\)</span> Assign
+node <span class="math inline">\(i\)</span> to the community of <span
+class="math inline">\(j^*\)</span> Keep node <span
+class="math inline">\(i\)</span> in its current community</p>
+</div>
+</div>
+<div class="algorithm">
+<div class="algorithmic">
+<p>a graph <span class="math inline">\(G = (V_G, E_G)\)</span> with a
+vertex set <span class="math inline">\(V_G\)</span> and an edge set
+<span class="math inline">\(E_G\)</span>; and the communities from Phase
+1. a graph <span class="math inline">\(H = (V_H, E_H)\)</span> where
+each node now represents a community in the Phase 1 graph <span
+class="math inline">\(G\)</span>.</p>
+<hr />
+<p><span class="math inline">\(V_H \gets \emptyset\)</span> <span
+class="math inline">\(E_H \gets \emptyset\)</span> <span
+class="math inline">\(V_H \gets V_H \cup \{C\}\)</span> <span
+class="math inline">\(e \gets \{C, C&#39;\}\)</span> <span
+class="math inline">\(E_H \gets E_H \cup \{e\}\)</span> (including a
+self-edge if <span class="math inline">\(C=C&#39;\)</span>) <span
+class="math inline">\(w_e \gets \sum_{\substack{v \in C \\ u \in
+C&#39;}} w_{v,u}\)</span>.</p>
+</div>
+</div>
+<p>Again, we repeat phases 1 and 2 until no change in modularity occurs.
+We call each iteration of phases 1 and 2 one pass of the algorithm.
+Figure <a href="#fig:louvain-louvain" data-reference-type="ref"
+data-reference="fig:louvain-louvain">1</a> below illustrates the Louvain
+algorithm.</p>
+<figure>
+<img src="./louvain/louvein.jpeg" id="fig:louvain-louvain"
+style="width:13cm"
+alt="Example from Blondel et al. showing the two phases of the Louvain algorithm" />
+<figcaption aria-hidden="true">Example from Blondel et al. showing the
+two phases of the Louvain algorithm</figcaption>
+</figure>
+<ol type="a">
+<li><p><strong>[9 points]</strong> Consider a node <span
+class="math inline">\(i\)</span> that is in a community all by itself.
+Let <span class="math inline">\(C\)</span> represent an existing
+community in the graph. Node <span class="math inline">\(i\)</span>
+feels lonely and decides to move into the community <span
+class="math inline">\(C\)</span>. This situation can be modeled by a
+graph (Figure <a href="#fig:louvain-modual" data-reference-type="ref"
+data-reference="fig:louvain-modual">2</a>) with <span
+class="math inline">\(C\)</span> represented by a single node. We
+observe the following sums of weights:</p>
+<ul>
+<li><p><span class="math inline">\(\Sigma_{in} = \sum_{j,k \in C}
+w_{j,k}\)</span> - the sum of the weights of edges within <span
+class="math inline">\(C\)</span>.</p></li>
+<li><p><span class="math inline">\(\Sigma_{tot}\)</span> - the sum of
+the weights of the edges incident to a vertex in <span
+class="math inline">\(C\)</span>.</p></li>
+<li><p><span class="math inline">\(k_i\)</span> - the sum of weights of
+edges incident to <span class="math inline">\(i\)</span> (i.e., its
+weighted degree).</p></li>
+<li><p><span class="math inline">\(k_{i,in}/2\)</span> - the sum of the
+weights of the edges between <span class="math inline">\(i\)</span> and
+a vertex in <span class="math inline">\(C\)</span>, i.e. the community
+of <span class="math inline">\(i\)</span> and <span
+class="math inline">\(C\)</span> are connected by an edge of weight
+<span class="math inline">\(k_{i,in}/2\)</span>.</p></li>
+<li><p>As always, <span class="math inline">\(2m = \sum_{i,j}
+A_{ij}\)</span> is the sum of all entries in the adjacency
+matrix.</p></li>
+</ul>
+<p>To begin with, <span class="math inline">\(C\)</span> and <span
+class="math inline">\(i\)</span> are in separate communities (colored
+green and red respectively). The third node represents the remainder of
+the graph.</p>
+<figure>
+<img src="./louvain/modual.jpeg" id="fig:louvain-modual"
+style="width:7cm"
+alt="Before merging, i is an isolated node and C is a community. The rest of the graph is represented by a single node." />
+<figcaption aria-hidden="true">Before merging, <span
+class="math inline">\(i\)</span> is an isolated node and <span
+class="math inline">\(C\)</span> is a community. The rest of the graph
+is represented by a single node.</figcaption>
+</figure>
+<p>Prove that the modularity gain seen when <span
+class="math inline">\(i\)</span> merges with <span
+class="math inline">\(C\)</span> (i.e., the change in modularity after
+they merge into one community) is given by: <span
+class="math display">\[\Delta Q=\left[\frac{\Sigma_{i n}+k_{i, i n}}{2
+m}-\left(\frac{\Sigma_{t o t}+k_{i}}{2
+m}\right)^{2}\right]-\left[\frac{\Sigma_{i n}}{2
+m}-\left(\frac{\Sigma_{t o t}}{2 m}\right)^{2}-\left(\frac{k_{i}}{2
+m}\right)^{2}\right].\]</span> Note that this expression gives us a
+computationally efficient way to compute the modularity changes in phase
+1.<br />
+<em>Hint: apply the community aggregation step of the Louvain algorithm
+to simplify the calculations.</em></p></li>
+<li><p><strong>[12 points]</strong> Consider the graph <span
+class="math inline">\(G\)</span> in Figure <a href="#fig:louvain-bignet"
+data-reference-type="ref" data-reference="fig:louvain-bignet">3</a>,
+with 4 cliques of 4 nodes each, arranged in a ring. Assume all the edges
+have the same weight value 1. There exists exactly one edge between any
+two adjacent cliques. We will manually (by hand) inspect the results of
+the Louvain algorithm on this network.</p>
+<figure>
+<img src="./louvain/bignet.jpeg" id="fig:louvain-bignet"
+style="width:10cm"
+alt="G is a subgraph. The whole graph has 16 nodes (4 cliques with 4 nodes per clique)" />
+<figcaption aria-hidden="true">G is a subgraph. The whole graph has 16
+nodes (4 cliques with 4 nodes per clique)</figcaption>
+</figure>
+<ol type="1">
+<li><p><strong>[4 points]</strong> The first phase of modularity
+optimization detects each clique as a single community, so there are 4
+communities in total. Thus, the graph <span
+class="math inline">\(H\)</span> output by the first pass of the Louvain
+algorithm is a graph with four nodes, each corresponding to one of the
+four cliques in <span class="math inline">\(G\)</span>. What are the
+weights of each edge in the graph <span
+class="math inline">\(H\)</span>? Explain.<br />
+<em>Hint: note that the symmetry of the ring structure simplifies the
+calculation.</em></p></li>
+<li><p><strong>[3 points]</strong> Derive the modularity of the graph
+<span class="math inline">\(H\)</span> after the first pass of the
+Louvain algorithm.</p></li>
+<li><p><strong>[5 points]</strong> Show mathematically that the
+modularity of <span class="math inline">\(H\)</span> would not increase
+in the second pass of the algorithm, hence the algorithm
+terminates.<br />
+<em>Hint: due to the symmetry in <span class="math inline">\(H\)</span>,
+you only need to calculate a single value of <span
+class="math inline">\(\Delta Q\)</span>. You may either calculate the
+modularity directly or extend the result of part (a).</em></p></li>
+</ol></li>
+<li><p><strong>[14 points]</strong> Modularity optimization often fails
+to identify communities smaller than a certain scale, which is known as
+the <strong>resolution limit problem</strong>. We illustrate this
+problem using a dataset with ground-truth communities; that is, we have
+labels for the “true" communities of the graph. We provide the following
+undirected YouTube social network. In the YouTube social network, users
+can form friendships with each other and users can create groups which
+other users can join. We consider such user-defined groups as
+ground-truth communities.</p>
+<p>We are interested in quantifying how “good” the communities chosen by
+modularity by evaluating them via a goodness metric, which we present
+below. Here we compare 2 scoring functions: (1) <em>modularity</em>
+(higher is better) (2) <em>cut ratio</em> (lower is better): <span
+class="math inline">\(f(S)=\frac{c_{S}}{n_{S}\left(n-n_{S}\right)}\)</span>,
+where <span class="math inline">\(c_{s}\)</span> is the number of edges
+crossing the boundary of community <span
+class="math inline">\(S\)</span>, <span
+class="math inline">\(n_{S}\)</span> is the number of nodes in <span
+class="math inline">\(S\)</span> and <span
+class="math inline">\(n\)</span> is the number of nodes in the entire
+graph. Our goodness metric is <em>density</em> <span
+class="math inline">\(g(S)=\frac{2m_{S}}{n_{S}(n_{S}-1)}\)</span>, where
+<span class="math inline">\(m_S\)</span> is the number of edges within
+<span class="math inline">\(S\)</span>.</p>
+<p><strong>Note</strong> that density favors small, highly connected
+communities; hence, we expect that scoring functions that do poorly with
+smaller communities will not perform well with respect to this metric,
+and that scoring functions that can accurately identify smaller
+communities will have strong performance with respect to this goodness
+metric. Thus, this creates a good test case for the resolution limit of
+<em>modularity</em>. From the definition, we could see cut ratio has
+already taken community size into account.</p>
+<p>We run the following experiment: the file <span
+style="color: blue"><code>youtube_community_top1000.txt</code></span> in
+the folder <code>louvain/data</code> contains the top 1000 ground-truth
+communities. For each community scoring function <span
+class="math inline">\(f\)</span>, we rank the ground-truth communities
+by decreasing score of <span class="math inline">\(f\)</span>. So, lower
+values of rank correspond to the “better" communities by each scoring
+function, whereas higher values of rank correspond to the “worse"
+communities under each scoring function. We measure the cumulative
+running average value of the goodness metric <span
+class="math inline">\(g\)</span> of the top-<span
+class="math inline">\(k\)</span> ground-truth communities under the
+ordering induced by <span class="math inline">\(f\)</span>. Intuitively,
+a perfect community scoring function would rank the communities in
+decreasing order of the goodness metric, and thus the cumulative running
+average of the goodness metric would decrease monotonically with <span
+class="math inline">\(k\)</span>.</p>
+<p>You have been provided a skeleton in the file <span
+style="color: blue"><code>PartitionQuality.py</code></span> in the
+folder <code>louvain/code</code>. Your task is to complete the functions
+<code>community_modularity</code>, <code>cut_ratio</code>, and
+<code>density</code>. Then, run the file, which executes the functions
+you have written and applies them to the YouTube dataset. Submit the
+plot <span style="color: blue"><code>density.jpg</code></span> produced
+by the code as part of your write-up. Interpret the plot you produce.
+Which metrics are performing better for this dataset?<br />
+<em>Hint:</em> for the first ground-truth community in
+<code>youtube_community_top1000.txt</code>, the modularity is
+approximately <span class="math inline">\(2.15 \times 10^{-5}\)</span>,
+the cut ratio is approximately <span class="math inline">\(1.39 \times
+10^{-4}\)</span>, and the density is approximately <span
+class="math inline">\(3.62 \times 10^{-2}\)</span>.</p></li>
+</ol>
+<h2 class="unnumbered" id="what-to-submit-1">What to submit</h2>
+<ol type="i">
+<li><p>Proof of <a href="#q:louvain" data-reference-type="ref"
+data-reference="q:louvain">2</a>(a).</p></li>
+<li><p>Answers to the 3 subparts of <a href="#q:louvain"
+data-reference-type="ref" data-reference="q:louvain">2</a>(b).</p></li>
+<li><p>The plot <code>density.jpg</code> produced by your code and an
+interpretation thereof. [<a href="#q:louvain" data-reference-type="ref"
+data-reference="q:louvain">2</a>(c)]</p></li>
+<li><p>Upload your completed implementation of
+<code>PartitionQuality.py</code> to Gradescope.</p></li>
+</ol>
+<h1 id="spectral-clustering-40-points">Spectral Clustering (40
+points)</h1>
+<p>We saw in lecture several methods for partitioning different types of
+graphs. In this problem, we explore (yet another) such partitioning
+method called “spectral clustering”. The name derives from the fact that
+it uses the <em>spectrum of certain matrices</em> (that is, the
+eigenvalues and eigenvectors) derived from the graph.</p>
+<p>Our overarching goals in this problem are to <span
+class="math inline">\((1)\)</span> derive a simple algorithm for
+spectral clustering, and <span class="math inline">\((2)\)</span> see
+how it could also be used in finding a clustering that maximizes
+modularity, something for which we already saw an algorithm in class
+(Louvain’s algorithm).</p>
+<p>Let us first fix the notation we’ll use in this problem.</p>
+<ul>
+<li><p>Let <span class="math inline">\(G = (V, E)\)</span> be a simple
+(that is, no self- or multi-edges), undirected, connected graph with
+<span class="math inline">\(n = |V|\)</span> and <span
+class="math inline">\(m = |E|\)</span>.</p></li>
+<li><p>We use the notation <span class="math inline">\(\{i,j\}\in
+E\)</span> to denote that the nodes <span
+class="math inline">\(i\)</span> and <span
+class="math inline">\(j\)</span> are connected via an edge (note that
+since this is an undirected graph, we do not talk about the direction of
+the connection).</p></li>
+<li><p>Let <span class="math inline">\(A\)</span> be the adjacency
+matrix of <span class="math inline">\(G\)</span>: that is, <span
+class="math inline">\(A_{ij} =
+    \left\{
+        \begin{array}{lll}
+            1 &amp; \mbox{ if } \{i, j\} \in E \\
+            0 &amp; \mbox{ } \mathrm{otherwise}
+        \end{array}
+    \right.\)</span>.</p></li>
+<li><p>We use <span class="math inline">\(d_i\)</span> to denote the
+degree of the <span class="math inline">\(i\)</span>-th node; by
+definition of the adjacency matrix, <span class="math inline">\(d_i =
+\sum_{j = 1}^n A_{ij}\)</span>. We define the diagonal matrix <span
+class="math inline">\(D\)</span> formed by placing the degrees of the
+nodes along its diagonal. That is, <span class="math inline">\(D_{ii} =
+d_i\)</span> for all <span class="math inline">\(i = 1, 2, \dotsc,
+n\)</span>.</p></li>
+<li><p>We define the graph Laplacian as the <span
+class="math inline">\(n \times n\)</span> matrix <span
+class="math inline">\(L = D - A\)</span>.</p></li>
+<li><p>We define a vector <span class="math inline">\(e_i \in
+\mathbb{R}^n\)</span> as zero on all coordinates <em>except</em> the
+<span class="math inline">\(i\)</span>-th, at which it is <span
+class="math inline">\(1\)</span>. In this case, since <span
+class="math inline">\(|V| = n\)</span>, the vector <span
+class="math inline">\(e_i\)</span> is <span
+class="math inline">\(n\)</span>-dimensional.</p></li>
+<li><p>Define the vector <span class="math inline">\(e \in
+\mathbb{R}^n\)</span> as the vector of all <span
+class="math inline">\(1\)</span>s. Again, <span
+class="math inline">\(e\)</span> is an <span
+class="math inline">\(n\)</span>-dimensional vector in this
+case.</p></li>
+</ul>
+<p>For a set of nodes <span class="math inline">\(S \subseteq
+V\)</span>, we associate two values that measure, in some sense, its
+quality as a cluster: the “cut” and the “volume”. We define these two
+values below.</p>
+<p>The “cut” of a set <span class="math inline">\(S\)</span> is defined
+as the number of edges that have one end point in the set <span
+class="math inline">\(S\)</span> and the other in its complement, <span
+class="math inline">\(\overline{S} = V\backslash S\)</span>: <span
+class="math display">\[\mathrm{cut}(S) = \sum_{i\in S, j \in
+\overline{S}}
+A_{ij}.\addtocounter{equation}{1}\tag{\theequation}\label{eq:def-cut}\]</span>
+Observe that by definition, <span class="math inline">\(\mathrm{cut}(S)
+= \mathrm{cut}(\overline{S})\)</span>. The “volume” of a set is defined
+as the sum of degrees of nodes in <span
+class="math inline">\(S\)</span>: <span
+class="math display">\[\mathrm{vol}(S) = \sum_{i \in S}
+d_i,\addtocounter{equation}{1}\tag{\theequation}\label{eq:def-vol}\]</span>
+where <span class="math inline">\(d_i\)</span> is the degree of node
+<span class="math inline">\(i\)</span>.</p>
+<p>In addition to the above measures associated with set <span
+class="math inline">\(S\)</span>, we define the <em>normalized cut</em>
+of a graph (associated with a partitioning <span
+class="math inline">\(S\)</span>) as <span
+class="math display">\[\mathrm{NCUT}(S) =
+\frac{\mathrm{cut}(S)}{\mathrm{vol}(S)} +
+\frac{\mathrm{cut}(\overline{S})}{\mathrm{vol}(\overline{S})}
+\addtocounter{equation}{1}\tag{\theequation}\label{eq:def-normcut}\]</span>
+For a set <span class="math inline">\(S\)</span> to have a small
+normalized cut value, it must have very few edges connecting the nodes
+inside <span class="math inline">\(S\)</span> to the rest of the graph
+(making the numerators small), <em>as well as</em> roughly equal volumes
+of <span class="math inline">\(S\)</span> and <span
+class="math inline">\(\overline{S}\)</span>, so that neither denominator
+is too small.</p>
+<p>We are now ready to start proving things. <strong>Please be careful
+when reading expressions involving <span
+class="math inline">\(S\)</span> and <span
+class="math inline">\(\overline{S}\)</span>, since at a quick glance
+they may look the same.</strong></p>
+<h3 class="unnumbered" id="a-establishing-some-basics-20-points">(a)
+Establishing Some Basics [20 points]</h3>
+<p>We first make some observations that will help us formulate the
+problem of minimizing normalized cut nicely in the next sub-problem.</p>
+<p>Given a set of nodes <span class="math inline">\(S\)</span>, we
+define a vector <span class="math inline">\(x_S \in
+\mathbb{R}^n\)</span>, such that the <span
+class="math inline">\(i\)</span>-th coordinate <span
+class="math inline">\(x_S^{(i)}\)</span> of <span
+class="math inline">\(x_S\)</span> is defined as follows: <span
+class="math display">\[x_S^{(i)} =
+    \left\{
+        \begin{array}{lll}
+            
+    \sqrt{\frac{\mathrm{vol}(\overline{S})}{\mathrm{vol}(S)}} &amp;
+\mbox{ if } i \in S \\
+            -\sqrt{\frac{\mathrm{vol}(S)}{\mathrm{vol}(\overline{S})}}
+&amp; \mbox{ } otherwise
+        \end{array}
+    \right.
+
+    \addtocounter{equation}{1}\tag{\theequation}\label{eq:def-x}\]</span>
+<strong>To clarify (because the font may not be clear), in Equation <a
+href="#eq:def-x" data-reference-type="ref"
+data-reference="eq:def-x">[eq:def-x]</a>, in the case <span
+class="math inline">\(i \in \overline{S}\)</span>, the term in the
+denominator under the square root is <span
+class="math inline">\(\text{vol}(\overline{S})\)</span>.</strong></p>
+<p>In the following, we are using the notation established at the start
+of this problem and some set of node <span class="math inline">\(S
+\subseteq V\)</span>. Prove the following statements:</p>
+<ol>
+<li><p><span class="math inline">\(L = \sum_{\{i, j\} \in E} (e_i -
+e_j)(e_i - e_j)^\top\)</span>.</p></li>
+<li><p>For any vector <span class="math inline">\(x \in
+\mathbb{R}^n\)</span>, it holds that <span class="math inline">\(x^\top
+L x = \sum_{\{i, j\} \in E} (x_i - x_j)^2\)</span>.</p></li>
+<li><p><span class="math inline">\(x_S^\top L x_S = c \cdot
+\mathrm{NCUT}(S)\)</span> for some constant <span
+class="math inline">\(c\)</span> that depends on the problem parameters.
+Note that you should specify this constant.</p></li>
+<li><p><span class="math inline">\(x_S^\top D e = 0\)</span>.</p></li>
+<li><p><span class="math inline">\(x_S^\top D x_S =
+2m\)</span>.</p></li>
+</ol>
+<h3 class="unnumbered" id="b-normalized-cut-minimization-11-points">(b)
+Normalized Cut Minimization [11 points]</h3>
+<p>Based on the facts we just proved about <span
+class="math inline">\(x\)</span> chosen as per Equation <a
+href="#eq:def-x" data-reference-type="ref"
+data-reference="eq:def-x">[eq:def-x]</a>, we can formulate the
+normalized cut minimization problem as follows: <span
+class="math display">\[\begin{array}{ll}
+\underset{S \subset V}{\text{minimize}} &amp; \frac{x_S^\top L
+x_S}{x_S^\top D x_S} \\
+\mbox{subject to } &amp; x_S^\top D e = 0,\\
+				&amp; x_S^\top D x_S = 2m.
+\end{array}\]</span></p>
+<p>To be clear, we are minimizing over all (non-trivial) partitions
+<span class="math inline">\((S,\overline{S})\)</span>, where the vectors
+<span class="math inline">\(x_S\)</span> are defined as described in
+Equation <a href="#eq:def-x" data-reference-type="ref"
+data-reference="eq:def-x">[eq:def-x]</a>. Note that the two constraints
+appearing in the optimization are trivially maintained due to the form
+<span class="math inline">\(x_S\)</span> as we have shown in the
+previous sub-problem. However, constraining <span
+class="math inline">\(x\)</span> to takes the form of Equation <a
+href="#eq:def-x" data-reference-type="ref"
+data-reference="eq:def-x">[eq:def-x]</a> makes this optimization problem
+NP-Hard. We will instead relax the optimization problem, making it
+tractable, and then round the relaxed solution back to a feasible point
+of the <em>original</em> problem. The relaxation we choose eliminates
+the constraint on the form of <span class="math inline">\(x\)</span>.
+This gives us the following <em>relaxed</em> optimization problem: <span
+class="math display">\[\begin{array}{ll}
+\underset{x \in \mathbb{R}^n}{\text{minimize}} &amp; \frac{x^\top L
+x}{x^\top D x},\\
+\mbox{subject to } &amp; x^\top D e = 0,\\
+				&amp; x^\top D x = 2m.
+\end{array}
+\addtocounter{equation}{1}\tag{\theequation}\label{normcut}\]</span></p>
+<ol start="6">
+<li><p>Show that a minimizer of the optimization problem <a
+href="#normcut" data-reference-type="ref"
+data-reference="normcut">[normcut]</a> is <span
+class="math display">\[x^* = D^{-1/2}v,\]</span> where <span
+class="math inline">\(v\)</span> is an eigenvector corresponding to the
+second smallest eigenvalue of the <em>normalized graph Laplacian</em>
+<span class="math inline">\(\mathcal{L} =
+D^{-1/2}LD^{-1/2}\)</span>.</p>
+<p><em>Hint 1</em>: Use the linear transformation <span
+class="math inline">\(z = D^{1/2}x\)</span>.</p>
+<p><em>Hint 2</em>: Prove that <span class="math inline">\(e\)</span> is
+the eigenvector corresponding to the smallest eigenvalue of <span
+class="math inline">\(L\)</span>, and use this fact.</p>
+<p><em>Hint 3</em>: For a symmetric matrix, we can always find
+eigenvectors that form an orthogonal basis for <span
+class="math inline">\(\mathbb{R}^n\)</span>.</p></li>
+</ol>
+<p>Finally, to round the solution back to a feasible point in the
+original problem, we can take the nodes corresponding to the positive
+entries of the eigenvector to be in the set <span
+class="math inline">\(S\)</span> and those corresponding to the negative
+entries to be in <span class="math inline">\(\overline{S}\)</span>.</p>
+<h3 class="unnumbered"
+id="c-relating-modularity-to-cuts-and-volumes-9-points">(c) Relating
+Modularity to Cuts and Volumes [9 points]</h3>
+<p>In class, we presented the modularity of a graph clustering in the
+context of the Louvain Algorithm. Modularity actually relates to cuts
+and volumes as well. Let us consider a partitioning of our graph <span
+class="math inline">\(G\)</span> into two clusters, and let <span
+class="math inline">\(y \in \{1, -1\}^n\)</span> be an assignment vector
+for a set <span class="math inline">\(S\)</span>: <span
+class="math display">\[\label{eqn:mod_assignment}
+y_i =
+\begin{cases}
+\phantom{-}1 &amp; \text{ if } i \in S \\
+-1 &amp; \text{ otherwise}
+\end{cases}\]</span> Then, the <em>modularity</em> of the assignment
+<span class="math inline">\(y\)</span> is <span
+class="math display">\[Q(y) = \frac{1}{2m}\sum_{i, j = 1}^n\left[A_{ij}
+- \frac{d_id_j}{2m}\right]\delta(y_i, y_j).\]</span> Here <span
+class="math inline">\(\delta(y_i, y_j)\)</span> is an indicator for
+whether or not the nodes <span class="math inline">\(i\)</span> and
+<span class="math inline">\(j\)</span> are in the same cluster: <span
+class="math display">\[\delta(y_i, y_j) =
+    \left\{
+        \begin{array}{lll}
+            1 &amp; \mbox{ if } \text{$i$ and $j$ are both in the same
+cluster} \\
+            0 &amp; \mbox{ } \text{otherwise}
+        \end{array}
+    \right.\]</span></p>
+<ol start="7">
+<li><p>Let <span class="math inline">\(y\)</span> be the assignment
+vector in Equation <a href="#eqn:mod_assignment"
+data-reference-type="ref"
+data-reference="eqn:mod_assignment">[eqn:mod_assignment]</a>. Prove that
+<span class="math display">\[\label{eqn:4c}
+        Q(y) = \frac{1}{2m}\left(-2\cdot\text{cut}(S)+
+\frac{1}{m}\text{vol}(S)\cdot
+\text{vol}(\overline{S})\right)\]</span></p></li>
+</ol>
+<p>Thus, maximizing modularity is really just minimizing the sum of the
+cut and the negative product of the partition’s volumes. As a result, we
+can use spectral algorithms similar to the one derived in parts 1-2 in
+order to find a clustering that maximizes modularity. While this might
+provide an intuitively “better" clustering after inspection than the
+Louvain Algorithm, spectral algorithms are computationally intensive on
+large graphs, and would only partition the graph into 2 clusters.</p>
+<p><strong>Note:</strong> You only need to prove the relationship
+between modularity and cuts; you do <strong>not</strong> need to derive
+the actual spectral algorithm.</p>
+<h2 class="unnumbered" id="what-to-submit-2">What to submit</h2>
+<ol type="i">
+<li><p>Proof of of the 5 equalities in part 4(a)</p></li>
+<li><p>Proof that the minimizer of the optimization problem <a
+href="#normcut" data-reference-type="ref"
+data-reference="normcut">[normcut]</a> is <span
+class="math inline">\(x^* = D^{-1/2}v\)</span> [4(b)]</p></li>
+<li><p>Proof of Equation <a href="#eqn:4c" data-reference-type="ref"
+data-reference="eqn:4c">[eqn:4c]</a> [4(c)]</p></li>
+</ol>
+</body>
+</html>

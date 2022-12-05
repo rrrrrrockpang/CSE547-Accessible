@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Homework 2</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Homework 2</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#principal-component-analysis-and-reconstruction-40-points"
+id="toc-principal-component-analysis-and-reconstruction-40-points">Principal
+Component Analysis and Reconstruction (40 points)</a>
+<ul>
+<li><a href="#a-matrix-algebra-review-8-pts"
+id="toc-a-matrix-algebra-review-8-pts">(a) Matrix Algebra Review [8
+pts]</a></li>
+<li><a href="#b-pca-10-pts" id="toc-b-pca-10-pts">(b) PCA [10
+pts]</a></li>
+<li><a href="#c-visualization-of-the-eigen-directions-10-pts"
+id="toc-c-visualization-of-the-eigen-directions-10-pts">(c)
+Visualization of the Eigen-Directions [10 pts]</a></li>
+<li><a href="#d-visualization-and-reconstruction-12-pts"
+id="toc-d-visualization-and-reconstruction-12-pts">(d) Visualization and
+Reconstruction [12 pts]</a></li>
+</ul></li>
+<li><a href="#k-means-on-spark-30-points"
+id="toc-k-means-on-spark-30-points"><span
+class="math inline">\(k\)</span>-means on Spark (30 points)</a>
+<ul>
+<li><a
+href="#a-exploring-initialization-strategies-with-euclidean-distance-15-pts"
+id="toc-a-exploring-initialization-strategies-with-euclidean-distance-15-pts">(a)
+Exploring initialization strategies with Euclidean distance [15
+pts]</a></li>
+<li><a
+href="#b-exploring-initialization-strategies-with-manhattan-distance-15-pts"
+id="toc-b-exploring-initialization-strategies-with-manhattan-distance-15-pts">(b)
+Exploring initialization strategies with Manhattan distance [15
+pts]</a></li>
+</ul></li>
+<li><a href="#q:imp_fb" id="toc-q:imp_fb">Implicit Feedback
+Recommendation System (30 points)</a></li>
+</ul>
+</nav>
+<p><br />
+</p>
+<h1
+id="principal-component-analysis-and-reconstruction-40-points">Principal
+Component Analysis and Reconstruction (40 points)</h1>
+<p>Let’s do PCA and reconstruct pictures of faces in the PCA basis. As
+we will be making many visualizations of images, plot these images in
+reasonable way (e.g. make the images smaller).</p>
+<h3 class="unnumbered" id="a-matrix-algebra-review-8-pts">(a) Matrix
+Algebra Review [8 pts]</h3>
+<p>The trace of a square matrix <span
+class="math inline">\(\bm{M}\)</span>, denoted, by <span
+class="math inline">\(Tr(\bm{M})\)</span> is defined as the sum of the
+diagonal entries of <span class="math inline">\(\bm{M}\)</span></p>
+<ol>
+<li><p><strong>[3 pts]</strong> Show that <span
+class="math inline">\(Tr(\bm{A}{\bm{B}}^{\mathrm{T}}) =
+Tr({\bm{B}}^{\mathrm{T}}\bm{A})\)</span> for two matrices <span
+class="math inline">\(\bm{A}\)</span> and <span
+class="math inline">\(\bm{B}\)</span> of size <span
+class="math inline">\(n \times d\)</span>.</p></li>
+<li><p><strong>[5 pts]</strong> Now we prove a few claims that will be
+helpful in the next problem. Define <span
+class="math inline">\(\mathbf{\Sigma} := \frac{1}{n}
+\mathbf{{X}^{\mathrm{T}}X}\)</span>, where <span
+class="math inline">\(\mathbf{X}\)</span> is the <span
+class="math inline">\(n \times d\)</span> data matrix. Let <span
+class="math inline">\(\mathbf{x}_i\)</span> be the <span
+class="math inline">\(i\)</span>-th row of <span
+class="math inline">\(\mathbf{X}\)</span> (so <span
+class="math inline">\(\mathbf{x}_i\)</span> is a <span
+class="math inline">\(d\)</span>-dimensional vector). Let <span
+class="math inline">\(\lambda_1 \ge \lambda_2 \ge \dots \ge
+\lambda_d\)</span> be the eigenvalues of <span
+class="math inline">\(\mathbf{\Sigma}\)</span>. Show the following two
+properties: <span class="math display">\[\begin{aligned}
+    Tr(\bm{\Sigma}) &amp;= \sum_{i=1}^d \lambda_i \\
+    Tr(\bm{\Sigma}) &amp;= \frac{1}{n} \sum_{i=1}^n
+\norm{\mathbf{x}_i}_2^2
+    
+\end{aligned}\]</span> <em>Hint:</em> Symmetric matrices are
+orthogonally diagonalizable. That is, a symmetric matrix <span
+class="math inline">\(\bm{A}\)</span> can always be written as <span
+class="math inline">\(\bm{A} = \bm{UDU}^T\)</span>, where <span
+class="math inline">\(\bm{D}\)</span> is a diagonal matrix with the
+eigenvalues of <span class="math inline">\(\bm{A}\)</span> along the
+diagonal and <span class="math inline">\(\bm{U}\)</span> is an
+orthogonal matrix, whose columns are the eigenvectors of <span
+class="math inline">\(\bm{A}\)</span>.</p></li>
+</ol>
+<h3 class="unnumbered" id="b-pca-10-pts">(b) PCA [10 pts]</h3>
+<p>For this question we will use the dataset
+<span><code>faces.csv</code></span> from <code>pca/data</code> (adapted
+from <a
+href="http://vision.ucsd.edu/~leekc/ExtYaleDatabase/ExtYaleB.html">the
+Extended Yale Face Database B</a>), which is composed of facial pictures
+of 38 individuals under 64 different lighting conditions such as lit
+from the top, front, and side (some lighting conditions are missing for
+some people). In total, there are 2414 images, where each image is 96
+pixels high and 84 pixels wide (for a total of 8064 pixels per image).
+Each row in the dataset is a single image flattened into a vector in a
+column-major order. The images are in grayscale, so each pixel is
+represented by a single real number between <span
+class="math inline">\(0\)</span> (black) and <span
+class="math inline">\(1\)</span> (white).</p>
+<p>Define <span class="math inline">\(\bm{\Sigma}\)</span>, a <span
+class="math inline">\(8064 \times 8064\)</span> matrix, as follows:
+<span class="math display">\[\bm{\Sigma} = \frac{1}{n} \sum_{i=1}^n
+\bm{x}_i {\bm{x}}^{\mathrm{T}}_i\]</span> where the <span
+class="math inline">\(\bm{x}_i\)</span>’s are points in our dataset as
+<strong>column</strong> vectors and <span class="math inline">\(n =
+2414\)</span> is the number of points in the dataset. Now compute the
+top 50 PCA dimensions; these are the 50 dimensions which best
+reconstruct the data.</p>
+<p>We will be implementing PCA using eigendecomposition. Thus, you may
+use library functions for obtaining the eigenvalues and eigenvectors of
+a matrix (e.g. <code>numpy.linalg.eig</code> in Python and
+<code>eig</code> or <code>eigs</code> in MATLAB). You are should
+<strong>not</strong> use functions which directly compute the principal
+components of a matrix. Please ask on Piazza regarding other (non-basic)
+linear algebra functions you may be interested in using.</p>
+<ol>
+<li><p><strong>[3 pts]</strong> What are the eigenvalues <span
+class="math inline">\(\lambda_1\)</span>, <span
+class="math inline">\(\lambda_2\)</span>, <span
+class="math inline">\(\lambda_{10}\)</span>, <span
+class="math inline">\(\lambda_{30}\)</span>, and <span
+class="math inline">\(\lambda_{50}\)</span>? Also, what is the sum of
+eigenvalues <span class="math inline">\(\sum_{i=1}^d \lambda_i?\)</span>
+<em>(Hint: use the answer from the previous question)</em>.</p></li>
+<li><p><strong>[5 pts]</strong> It is straight forward to see that the
+fractional reconstruction error of using the top <span
+class="math inline">\(k\)</span> out of <span
+class="math inline">\(d\)</span> directions is <span
+class="math inline">\(1 - \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^d
+\lambda_i}\)</span>. Plot this fractional reconstruction error for the
+each of the first 50 values of k (i.e. <span
+class="math inline">\(k\)</span> from 1 to 50). So the <span
+class="math inline">\(X\)</span>-axis is <span
+class="math inline">\(k\)</span> and the <span
+class="math inline">\(Y\)</span>-axis is the fractional reconstruction
+error. Make sure your plots are legible at reasonable zoom in your
+write-up.</p></li>
+<li><p><strong>[2 pt]</strong> What does the first eigenvalue capture,
+and why do you think <span class="math inline">\(\lambda_1\)</span> is
+much larger than the other eigenvalues?</p></li>
+</ol>
+<h3 class="unnumbered"
+id="c-visualization-of-the-eigen-directions-10-pts">(c) Visualization of
+the Eigen-Directions [10 pts]</h3>
+<p>Now let us get a sense of the what the top PCA directions are
+capturing (recall these are the directions which capture the most
+variance).</p>
+<ol>
+<li><p><strong>[5 pts]</strong> Display the first 10 eigenvectors as
+images.</p>
+<p><em>Hint 1:</em> If the images appear like random lines, try
+reshaping differently and then transposing.</p>
+<p><em>Hint 2:</em> The eigenvectors you obtain are normalized to have
+length 1 in the <span class="math inline">\(L_2\)</span> norm, thus
+their entries are extremely small. To avoid getting all-black images,
+make sure to re-normalize the image. in Python,
+<code>matplotlib.pyplot.imshow</code> does this by default. If you are
+using <code>imshow</code> in MATLAB, you should pass an extra empty
+vector as an argument, e.g. "<code>imshow(im, []);</code>".</p></li>
+<li><p><strong>[5 pt]</strong> Provide a brief interpretation of what
+you think each eigenvector captures.</p></li>
+</ol>
+<h3 class="unnumbered"
+id="d-visualization-and-reconstruction-12-pts">(d) Visualization and
+Reconstruction [12 pts]</h3>
+<ol>
+<li><p><strong>[8 pt]</strong> We will now observe the reconstruction
+using PCA on a sample of images composed of the following images:</p>
+<ol>
+<li><p>image 1 (row 0).</p></li>
+<li><p>image 24 (row 23).</p></li>
+<li><p>image 65 (row 64).</p></li>
+<li><p>image 68 (row 67).</p></li>
+<li><p>image 257 (row 256).</p></li>
+</ol>
+<p>For each of these images, plot the original image and plot the
+projection of the image onto the top <span
+class="math inline">\(k\)</span> eigenvectors of <span
+class="math inline">\(\Sigma\)</span> for <span class="math inline">\(k
+= 1, 2, 5, 10, 50\)</span>. In particular, if <span
+class="math inline">\(U\)</span> is the <span class="math inline">\(d
+\times k\)</span> matrix of the top <span
+class="math inline">\(k\)</span> eigenvectors, the reconstruction matrix
+will be <span class="math inline">\(U{U}^{\mathrm{T}}\)</span>.</p>
+<p>Specifically, you should obtain a <span class="math inline">\(5
+\times 6\)</span> table where in each row corresponds to a single image,
+the first cell in every row is the original image and the following
+cells are the reconstructions of the image with the 5 different values
+of <span class="math inline">\(k\)</span>.</p>
+<p><em>Hint:</em> In this problem, we are observing (partial)
+combinations of images that already have a meaningful scale. Therefore,
+we want to keep the scale of the results and not re-normalize the images
+(in contrast to part (c)). If you are using
+<code>matplotlib.pyplot.imshow</code> in Python, you should pass the
+additional arguments <code>vmin=0, vmax=1</code>, e.g.
+<code>imshow(im, vmin=0, vmax=1)</code>. If you are using
+<code>imshow</code> in MATLAB, the default is not re-normalizing, so you
+should <strong>not</strong> pass additional arguments, e.g. simply use
+"<code>imshow(im);</code>".</p></li>
+<li><p><strong>[4 pt]</strong> Provide a brief interpretation, in terms
+of your perceptions of the quality of these reconstructions. Explain the
+results in light of your answers for part (c). Discuss specific examples
+which corroborate your answer for part (c).</p></li>
+</ol>
+<p><span><strong>What to submit:</strong></span></p>
+<ol type="i">
+<li><p>Proofs for the claims in 1(a).</p></li>
+<li><p>The values of <span class="math inline">\(\lambda_1\)</span>,
+<span class="math inline">\(\lambda_2\)</span>, <span
+class="math inline">\(\lambda_{10}\)</span>, <span
+class="math inline">\(\lambda_{30}, \lambda_{50}\)</span> and <span
+class="math inline">\(\sum_i \lambda_i\)</span>, a plot of the
+reconstruction error vs. k and an explanation for 1(b).</p></li>
+<li><p>Plots of the first 10 eigenvectors as images and their
+interpretation [1(c)].</p></li>
+<li><p>Table of original and reconstructed images and their
+interpretation [1(d)].</p></li>
+<li><p>Upload the code to Gradescope.</p></li>
+</ol>
+<h1 id="k-means-on-spark-30-points"><span
+class="math inline">\(k\)</span>-means on Spark (30 points)</h1>
+<p><strong>Note:</strong> This problem requires substantial computing
+time. Don’t start it at the last minute. Also, you should
+<strong>not</strong> use the Spark MLlib clustering library for this
+problem.<br />
+This problem will help you understand the nitty gritty details of
+implementing clustering algorithms on Spark. In addition, this problem
+will also help you understand the impact of using various distance
+metrics and initialization strategies in practice. Let us say we have a
+set <span class="math inline">\(\mathcal{X}\)</span> of <span
+class="math inline">\(n\)</span> data points in the <span
+class="math inline">\(d\)</span>-dimensional space <span
+class="math inline">\(\mathbb{R}^d\)</span>. Given the number of
+clusters <span class="math inline">\(k\)</span> and the set of <span
+class="math inline">\(k\)</span> centroids <span
+class="math inline">\(\mathcal{C}\)</span>, we now proceed to define
+various distance metrics and the corresponding cost functions that they
+minimize.</p>
+<p>Given two points <span class="math inline">\(\bm{a}, \bm{b} \in
+\mathbb{R}^d\)</span>, such that <span class="math inline">\(\bm{a} =
+[a_1, a_2 \cdots a_d]\)</span> and <span class="math inline">\(\bm{b} =
+[b_1, b_2 \cdots b_d]\)</span> the <em>Euclidean distance</em> or
+<em><span class="math inline">\(L^2\)</span> distance</em> between <span
+class="math inline">\(\bm{a}\)</span> and <span
+class="math inline">\(\bm{b}\)</span> is defined as: <span
+class="math display">\[\label{eqn:ed}
+\|\bm{a} - \bm{b}\|_2 = \sqrt{\sum_{i=1}^{d} |a_i - b_i|^2}\]</span></p>
+<p>The <em>Manhattan distance</em> or <em><span
+class="math inline">\(L^1\)</span> distance</em> between <span
+class="math inline">\(a\)</span> and <span
+class="math inline">\(b\)</span> is defined as: <span
+class="math display">\[\label{eqn:md}
+\|\bm{a} - \bm{b}\|_1 = \sum_{i=1}^{d} |a_i - b_i|\]</span></p>
+<p>The <strong><span class="math inline">\(k\)</span>-means
+algorithm</strong> aims to partition <span
+class="math inline">\(\mathcal{X}\)</span> to <span
+class="math inline">\(k\)</span> clusters by defining a set <span
+class="math inline">\(\mathcal{C} = \{\bm{c}^{(1)}, \ldots,
+\bm{c}^{(k)}\}\)</span> of <span class="math inline">\(k\)</span>
+centroids and partitioning <span
+class="math inline">\(\mathcal{X}\)</span> to <span
+class="math inline">\(k\)</span> clusters <span
+class="math inline">\(\mathcal{P} = \{P_1, \ldots, P_k\)</span>}, so to
+minimize the sum of <strong>squared</strong> <span
+class="math inline">\(L^2\)</span>-distances between every point and the
+centroid associated with its cluster. Formally, <span
+class="math inline">\(k\)</span>-means tries to solve the following
+minimization problem: <span
+class="math display">\[\min_{\mathcal{C},\mathcal{P}} \Phi(\mathcal{C},
+\mathcal{P}) =
+\min_{\mathcal{C},\mathcal{P}} \sum_{i=1}^k \sum_{\bm{x}\in P_i}
+\|\bm{x}-\bm{c}^{(i)}\|_2^2\]</span> where <span
+class="math inline">\(\Phi(\mathcal{C}, \mathcal{P}) = \sum_{i=1}^k
+\sum_{\bm{x}\in P_i} \|\bm{x}-\bm{c}^{(i)}\|_2^2\)</span> is the "cost"
+associated with the set of centroids <span
+class="math inline">\(\mathcal{C}\)</span> and the partition <span
+class="math inline">\(\mathcal{P}\)</span>.</p>
+<p>For a fixed set of centroids <span
+class="math inline">\(\mathcal{C}\)</span>, the cost function <span
+class="math inline">\(\Phi\)</span> is minimized by assigning every
+point to the centroid closest to it (in <span
+class="math inline">\(L^2\)</span>). Thus, the cost <span
+class="math inline">\(\phi(\mathcal{C})\)</span> associated with <span
+class="math inline">\(\mathcal{C}\)</span> is: <span
+class="math display">\[\label{eqn:ced}
+\phi\left(\mathcal{C}\right) = \min_{\mathcal{P}} \Phi(\mathcal{C},
+\mathcal{P}) = \sum_{x\in \mathcal{X}} \min_{\bm{c}\in\mathcal{C}}
+\|\bm{x}-\bm{c}\|_2^2\]</span></p>
+<p>For a fixed partition <span
+class="math inline">\(\mathcal{P}\)</span>, the cost function <span
+class="math inline">\(\Phi\)</span> is minimized by setting the centroid
+of every cluster to be the mean of all the points in that cluster. Thus,
+the algorithm operates as follows: Initially, <span
+class="math inline">\(k\)</span> centroids are initialized. Thereafter,
+alternately, given the set of centroids, each point is assigned to the
+cluster associated with the nearest centroid; and the centroids are
+recomputed based on the assignments of points to clusters. The above
+process is executed for several iterations, as is detailed in Algorithm
+<a href="#kmeans" data-reference-type="ref"
+data-reference="kmeans">[kmeans]</a>.</p>
+<div class="algorithm">
+<div class="algorithmic">
+<p>Select <span class="math inline">\(k\)</span> points as initial
+centroids of the <span class="math inline">\(k\)</span> clusters.
+Cluster of <span class="math inline">\(x \gets\)</span> the cluster with
+the closest centroid to <span class="math inline">\(x\)</span> Centroid
+of <span class="math inline">\(P \gets\)</span> the mean of all the data
+points assigned to <span class="math inline">\(P\)</span> Calculate the
+cost for this iteration.</p>
+</div>
+</div>
+<p>Instead of minimizing the cost function <span
+class="math inline">\(\Phi\)</span>, which is defined using the squared
+<span class="math inline">\(L^2\)</span> distnace, we can minimize a
+cost function defined using the <span class="math inline">\(L^1\)</span>
+distance, namely: <span class="math display">\[\Psi(\mathcal{C},
+\mathcal{P}) = \sum_{i=1}^k \sum_{\bm{x}\in P_i}
+\|\bm{x}-\bm{c}^{(i)}\|_1\]</span> Note that in this case the distance
+is <strong>not</strong> squared.</p>
+<p>Still, for a fixed set of centroids <span
+class="math inline">\(\mathcal{C}\)</span>, the cost function <span
+class="math inline">\(\Psi\)</span> is minimized by assigning every
+point to the centroid closest to it (but this time in <span
+class="math inline">\(L^1\)</span>). Thus the cost <span
+class="math inline">\(\psi(\mathcal{C})\)</span> associated with <span
+class="math inline">\(\mathcal{C}\)</span> is: <span
+class="math display">\[\label{eqn:cmd}
+\psi\left(\mathcal{C}\right) = \min_{\mathcal{P}} \Psi(\mathcal{C},
+\mathcal{P}) = \sum_{\bm{x}\in \mathcal{X}} \min_{\bm{c}\in\mathcal{C}}
+\|\bm{x} - \bm{c}\|_1\]</span></p>
+<p>In contrast to <span class="math inline">\(\Phi\)</span>, for a fixed
+partition <span class="math inline">\(\mathcal{P}\)</span>, the cost
+function <span class="math inline">\(\Psi\)</span> is minimized setting
+the centroid of every cluster to be the <strong>median</strong> in every
+dimension of the points in that cluster. Thus, we obtain a variation on
+<span class="math inline">\(k\)</span>-means, which is known as
+<strong><span class="math inline">\(k\)</span>-medians</strong>.</p>
+<p>Please use the dataset from <code>kmeans/data</code> within the
+bundle for this problem.</p>
+<p>The folder has 3 files:</p>
+<ol>
+<li><p><span style="color: blue"><code>data.txt</code></span> contains
+the dataset which has 4601 rows and 58 columns. Each row is a document
+represented as a 58 dimensional vector of features. Each component in
+the vector represents the importance of a word in the document.</p></li>
+<li><p><span style="color: blue"><code>c1.txt</code></span> contains
+<span class="math inline">\(k\)</span> initial cluster centroids. These
+centroids were chosen by selecting <span class="math inline">\(k =
+10\)</span> random points from the input data.</p></li>
+<li><p><span style="color: blue"><code>c2.txt</code></span> contains
+initial cluster centroids which are as far apart as possible. (You can
+do this by choosing the first centroid <span
+class="math inline">\(\bm{c}^{(1)}\)</span> randomly, and then finding
+the point <span class="math inline">\(\bm{c}^{(2)}\)</span> that is
+farthest from <span class="math inline">\(\bm{c}^{(1)}\)</span>, then
+selecting <span class="math inline">\(\bm{c}^{(3)}\)</span> which is
+farthest from <span class="math inline">\(\bm{c}^{(1)}\)</span> and
+<span class="math inline">\(\bm{c}^{(2)}\)</span>, and so on).</p></li>
+</ol>
+<p>Set the number of iterations (<code>MAX_ITER</code>) to <span
+class="math inline">\(20\)</span> and the number of clusters <span
+class="math inline">\(k\)</span> to <span
+class="math inline">\(10\)</span> for all the experiments carried out in
+this question. Your driver program should ensure that the correct amount
+of iterations are run.</p>
+<h3 class="unnumbered"
+id="a-exploring-initialization-strategies-with-euclidean-distance-15-pts">(a)
+Exploring initialization strategies with Euclidean distance [15
+pts]</h3>
+<p>Implement <span class="math inline">\(k\)</span>-means using Spark
+and compute the cost function <span
+class="math inline">\(\phi(i)\)</span> (Equation <a href="#eqn:ced"
+data-reference-type="ref" data-reference="eqn:ced">[eqn:ced]</a>) after
+every iteration <span class="math inline">\(i = 0, 1, \ldots\)</span><a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. This means that for your <span
+class="math inline">\(0\textsuperscript{th}\)</span> iteration, you’ll
+be computing the cost function using the initial centroids located in
+one of the two text files. Run the <span
+class="math inline">\(k\)</span>-means on <code>data.txt</code> using
+<code>c1.txt</code> and <code>c2.txt</code>.</p>
+<p><em>Hint: Note that you do not need to write a separate Spark job to
+compute <span class="math inline">\(\phi(i)\)</span>. You should be able
+to calculate costs while partitioning points into clusters.</em></p>
+<p><em>Hint 2: The cost after 5 iterations starting from the centroids
+in <code>c1.txt</code> is approximately <span
+class="math inline">\(460,538,000\)</span>.</em></p>
+<ol>
+<li><p><strong>[8 pts]</strong> Generate a graph where you plot the cost
+function <span class="math inline">\(\phi(i)\)</span> as a function of
+the number of the iteration <span
+class="math inline">\(i\)</span>=0,…,20 for <code>c1.txt</code> and also
+for <code>c2.txt</code>.</p></li>
+<li><p><strong>[7 pts]</strong> By how many percent does the cost change
+over the first 10 iterations of <span
+class="math inline">\(k\)</span>-means when initializing using
+<code>c1.txt</code> and when using <code>c2.txt</code>? (e.g. if the
+cost before the first iteration was 10 and after the 10<sup>th</sup>
+iteration it is 7, then it decreased by 30%).</p>
+<p>Explain which initialization method is better in terms of the cost
+<span class="math inline">\(\phi(i)\)</span>, and your intuition as to
+why.</p></li>
+</ol>
+<h3 class="unnumbered"
+id="b-exploring-initialization-strategies-with-manhattan-distance-15-pts">(b)
+Exploring initialization strategies with Manhattan distance [15
+pts]</h3>
+<p>Implement <span class="math inline">\(k\)</span>-medians using Spark
+and compute the cost function <span
+class="math inline">\(\psi(i)\)</span> (Equation <a href="#eqn:cmd"
+data-reference-type="ref" data-reference="eqn:cmd">[eqn:cmd]</a>) after
+every iteration <span class="math inline">\(i = 0, 1, \ldots\)</span> <a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>. This means that, for your <span
+class="math inline">\(0\textsuperscript{th}\)</span> iteration, you’ll
+be computing the cost function using the initial centroids located in
+one of the two text files. Run the <span
+class="math inline">\(k\)</span>-medians on <code>data.txt</code> using
+<code>c1.txt</code> and <code>c2.txt</code>.</p>
+<p><em>Hint: This problem can be solved in a similar manner to that of
+part (a).</em></p>
+<p><em>Hint 2: The cost after 5 iterations starting from the centroids
+in <code>c1.txt</code> is approximately <span
+class="math inline">\(412,012\)</span>.</em></p>
+<ol>
+<li><p><strong>[8 pts]</strong> Generate a graph where you plot the cost
+function <span class="math inline">\(\psi(i)\)</span> as a function of
+the number of the iteration <span
+class="math inline">\(i\)</span>=0,…,20 for <code>c1.txt</code> and also
+for <code>c2.txt</code>.</p></li>
+<li><p><strong>[7 pts]</strong> By how many percent does the cost change
+over the first 10 iterations of <span
+class="math inline">\(k\)</span>-medians when initializing using
+<code>c1.txt</code> and when using <code>c2.txt</code>?</p>
+<p>Explain which initialization method is better in terms of cost <span
+class="math inline">\(\psi(i)\)</span>, and your intuition as to
+why.</p></li>
+</ol>
+<p><strong>What to submit:</strong></p>
+<ol type="i">
+<li><p>Upload the code for 2(a) and 2(b) to Gradescope (Your solution
+may be in either one or two files).</p></li>
+<li><p>A plot of cost vs. iteration for two initialization strategies
+for 2(a).</p></li>
+<li><p>Percentage of change and your explanation for 2(a).</p></li>
+<li><p>A plot of cost vs. iteration for two initialization strategies
+for 2(b).</p></li>
+<li><p>Percentage of change values and your explanation for
+2(b).</p></li>
+</ol>
+<h1 id="q:imp_fb">Implicit Feedback Recommendation System (30
+points)</h1>
+<p>In many real-world applications, it’s expensive to collect explicit
+rating data. However, it’s cheap to collect implicit feedback data such
+as clicks, page views, purchases and media streams at a large and fast
+scale.</p>
+<p>Let <span class="math inline">\(\mathcal{U}\)</span> be a set of
+<span class="math inline">\(m\)</span> users, and <span
+class="math inline">\(\mathcal{I}\)</span> be a set of <span
+class="math inline">\(n\)</span> items. For every user <span
+class="math inline">\(u \in \mathcal{U}\)</span> and item <span
+class="math inline">\(i \in \mathcal{I}\)</span>, let’s define such
+observable implicit feedback as <span
+class="math inline">\(r_{ui}\)</span>: <span
+class="math display">\[r_{ui} = \text{The number of times user } u
+\text{ interacted with item } i\]</span></p>
+<p>Note that <span class="math inline">\(r_{ui}\)</span> could be
+allowed to have non-integer values; e.g. <span
+class="math inline">\(r_{ui}=0.5\)</span> may indicate that user <span
+class="math inline">\(u\)</span> watched half of movie <span
+class="math inline">\(i\)</span>. We cannot observe the true
+<em>preference</em> <span class="math inline">\(p_{ui}\)</span> of user
+<span class="math inline">\(u\)</span> for item <span
+class="math inline">\(i\)</span>. For simplicity, we assume <span
+class="math inline">\(p_{u i}\)</span> can only take the values 1 (like)
+or 0 (dislike).</p>
+<p>Following the latent factor model in lecture, we assume <span
+class="math inline">\(p_{ui}\)</span> is the dot product of a user
+vector <span class="math inline">\(\bm{x}_{u} \in
+\mathbb{R}^{f}\)</span> and an item vector <span
+class="math inline">\(\bm{y}_i \in \mathbb{R}^{f}\)</span> for each user
+<span class="math inline">\(u\)</span> and item <span
+class="math inline">\(i\)</span>: <span class="math display">\[p_{u i}
+\approx \bm{x}_{u}^T \bm{y}_{i}\]</span></p>
+<p>If user <span class="math inline">\(u\)</span> has interacted with
+item <span class="math inline">\(i\)</span>, we have reason to believe
+that <span class="math inline">\(p_{ui}=1\)</span> with some confidence.
+The more the user interacts with that item, the more confident we are
+that <span class="math inline">\(p_{ui}=1\)</span>. To capture this
+idea, we try to minimize the following heuristic cost function over
+possible assignments to the user matrix <span
+class="math inline">\(\bm{X} = [\bm{x}_1 \cdots \bm{x}_m]^T \in
+\mathbb{R}^{m \times f}\)</span> and to the item matrix <span
+class="math inline">\(\bm{Y} = \left[\bm{y}_1 \cdots \bm{y}_n\right]^T
+\in \mathbb{R}^{n \times f}\)</span>: <span
+class="math display">\[\begin{aligned}
+    C_{\text {implicit }}(\bm{X},\bm{Y}) =
+    \sum_{u, i \in \mathcal{U} \times \mathcal{I}}
+    c_{u i}\left(p_{u i}-\bm{x}_{u}^{T} \bm{y}_{i}\right)^{2} +
+    \lambda\left(\sum_{u}\left\|\bm{x}_{u}\right\|^{2}+\sum_{i}\left\|\bm{y}_{i}\right\|^{2}\right),
+\label{eq:cost}
+\end{aligned}\]</span> where <span class="math display">\[p_{u i}=
+\begin{cases}
+1 &amp; \text{ if } r_{u i}&gt;0 \\
+0 &amp; \text{ if } r_{u i}=0
+\end{cases},\]</span></p>
+<p><span class="math inline">\(c_{u i} = 1+\alpha r_{u i}\)</span> is
+our confidence in <span class="math inline">\(p_{ui}\)</span>. Empirical
+evidence suggests setting hyperparameter <span
+class="math inline">\(\alpha\)</span> to the sparsity ratio <span
+class="math inline">\(= \frac{\# \text{nonzero} \ r_{ui}}{\#
+\text{zero}\  r_{ui}}\)</span>.</p>
+<p>We apply an algorithm known as Alternating Least Square (ALS) to
+minimize <span class="math inline">\(C_{\text {implicit}}\)</span>. The
+basic idea of ALS is: first hold the user vectors fixed and solve for
+the minimum in the item variables, then hold the item vectors fixed and
+solve for the minimum in the user variables, and repeat until
+convergence.</p>
+<div class="algorithm">
+<div class="algorithmic">
+<p><span class="math inline">\(\bm{p}_i \gets\)</span> all the
+preferences for item <span class="math inline">\(i\)</span> <span
+class="math inline">\(\bm{C}_i \gets\)</span> the diagonal <span
+class="math inline">\(m \times m\)</span> matrix, where <span
+class="math inline">\([\bm{C}_i]_{uu}=c_{ui}\)</span>. <span
+class="math inline">\(\bm{y}_i \gets \left(\bm{X}^{T} \bm{C}_i \bm{X} +
+\lambda \bm{I}\right)^{-1} \bm{X}^{T} \bm{C}_i \bm{p}_i\)</span> <span
+class="math inline">\(\bm{p}_u \gets\)</span> all the preferences of
+user <span class="math inline">\(u\)</span> . <span
+class="math inline">\(\bm{C}_{u} \gets\)</span> the diagonal <span
+class="math inline">\(n \times n\)</span> matrix, where <span
+class="math inline">\([\bm{C}_{u}]_{ii}=c_{ui}\)</span>.<br />
+<span class="math inline">\(\bm{x}_{u} \gets \left(\bm{Y}^{T} \bm{C}_{u}
+\bm{Y} + \lambda \bm{I}\right)^{-1} \bm{Y}^{T} \bm{C}_{u}
+\bm{p}_{u}\)</span></p>
+</div>
+</div>
+<ol type="a">
+<li><p><strong>[3 pts]</strong> Explain why we give <span
+class="math inline">\(p_{ui} = 0\)</span> (or <span
+class="math inline">\(r_{ui} = 0\)</span>) the lowest confidence weight
+(<span class="math inline">\(c_{ui} = 1\)</span>).</p></li>
+<li><p><strong>[6 pts]</strong> Treat <span
+class="math inline">\(\bm{y}_i\)</span> as fixed for all <span
+class="math inline">\(i \in \mathcal{I}\)</span>. Show that the optimal
+<span class="math inline">\(\bm{x}_u\)</span> with respect to the cost
+function <span class="math inline">\(\eqref{eq:cost}\)</span> can be
+expressed as: <span class="math display">\[\begin{aligned}
+        \bm{x}_{u}=\left(\bm{Y}^{T} \bm{C}_u \bm{Y}+\lambda
+\bm{I}\right)^{-1} \bm{Y}^{T} \bm{C}_u \bm{p}_u,
+    
+\end{aligned}\]</span> where <span class="math inline">\(\bm{Y} =
+\left[\bm{y}_1 \cdots \bm{y}_n\right]^T \in \mathbb{R}^{n \times
+f}\)</span>, <span class="math inline">\(\bm{C}_{u} = diag(c_{u1},
+\dots, c_{un}) \in \mathbb{R}^{n \times n}\)</span>, and <span
+class="math inline">\(\bm{p}_{u} = [p_{u1}, \ldots, p_{un}]^T \in
+\mathbb{R}^n\)</span>.</p>
+<p><em>Hint: You may use the following in your derivation. For any two
+vectors <span class="math inline">\(\bm{a}, \bm{b} \in
+\mathbb{R}^d\)</span>, we have:</em> <span
+class="math display">\[\begin{aligned}
+        \frac{\partial \bm{a}^T \bm{b}}{\bm{a}} &amp;= \bm{b} &amp;
+&amp;
+        \frac{\partial \lVert \bm{a} \rVert_{2}^2}{\partial \bm{a}} =
+\frac{\partial \bm{a}^T \bm{a}}{\partial \bm{a}} = 2 \bm{a}.
+    
+\end{aligned}\]</span></p></li>
+<li><p><strong>[5 pts]</strong> <span id="imp_fb:complex_single"
+label="imp_fb:complex_single"></span> For the calculation of <span
+class="math inline">\(\bm{x}_{u}\)</span>, a computational bottleneck is
+computing <span class="math inline">\(\bm{Y}^{T} \bm{C}_u
+\bm{Y}\)</span>, where the naive solution requires time <span
+class="math inline">\(\mathcal{O}(f^{2}n)\)</span>. A trick is to
+re-express <span class="math inline">\(\bm{Y}^{T} \bm{C}_{u} \bm{Y} =
+\bm{Y}^{T} \bm{Y} + \bm{Y}^{T}\left(\bm{C}_{u}-\bm{I}\right)
+\bm{Y}\)</span>. Now, <span class="math inline">\(\bm{Y}^{T}
+\bm{Y}\)</span> is independent of <span class="math inline">\(u\)</span>
+and can be precomputed. As for <span
+class="math inline">\(\bm{Y}^{T}\left(\bm{C}_{u}-\bm{I}\right)
+\bm{Y}\)</span>, notice that <span class="math inline">\(\bm{C}_{u} -
+\bm{I}\)</span> has only <span class="math inline">\(n_{u}\)</span>
+nonzero elements, where the <span class="math inline">\(n_u\)</span> is
+number of items <span class="math inline">\(u\)</span> iteracted with
+and typically <span class="math inline">\(n_{u} \ll n\)</span>.
+Similarly, <span class="math inline">\(\bm{C}_{u} \bm{p}_u\)</span> only
+has <span class="math inline">\(n_{u}\)</span> non-zero elements.</p>
+<p>Derive the time complexity of computing <span
+class="math inline">\(\bm{Y}^{T} \left(\bm{C}_{u} - \bm{I}\right)
+\bm{Y}\)</span> for a single user <span
+class="math inline">\(u\)</span>. You may assume that <span
+class="math inline">\((\bm{C}_u - \bm{I})\)</span> is represented as a
+sparse matrix.</p>
+<p><em>Hint: express your answer in terms of the number of features
+<span class="math inline">\(f\)</span> and <span
+class="math inline">\(n_u\)</span></em>.</p></li>
+<li><p><strong>[4 pts]</strong> Suppose <span
+class="math inline">\(\bm{Y}^T \bm{Y}\)</span> has been precomputed and
+the time complexity of matrix inversion <span
+class="math inline">\(\left(\bm{Y}^T \bm{C}_u \bm{Y} + \lambda
+\bm{I}\right)^{-1}\)</span> is <span
+class="math inline">\(\mathcal{O}(f^3)\)</span>. We denote <span
+class="math inline">\(\mathcal{N}=\sum_{u \in \mathcal{U}}
+n_{u}\)</span>. Derive the time complexity of updating <span
+class="math inline">\(\bm{X}\)</span> (<em>Hint: express your answer in
+terms of <span class="math inline">\(f\)</span>, <span
+class="math inline">\(\mathcal{N}\)</span> and <span
+class="math inline">\(m\)</span></em>).</p></li>
+<li><p><strong>[12 pts]</strong> <del>We have provided a real dataset in
+<code>implicit_feedback/data</code> containing the listening history of
+3000 artists from 1882 users in Last.fm<a href="#fn3"
+class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>.</del> We are replacing this dataset
+with two alternate datasets – a smaller version of the real Last.fm
+dataset (<span
+style="color: blue"><code>user_artists_small.txt</code></span>) and a
+synthetic dataset (<span
+style="color: blue"><code>user_artists_synthetic.txt</code></span>).
+Both these datasets contain 100 users and 100 items. You can find both
+of them in the <code>implicit_feedback/data</code> folder in the updated
+bundle file. The files contain a tab-separated triplets (one triplet per
+line) of the form <span
+class="math inline">\(&lt;u,i,r_{ui}&gt;\)</span>, where <span
+class="math inline">\(u\)</span> is a user label, <span
+class="math inline">\(i\)</span> is an artist label and <span
+class="math inline">\(r_{ui}\)</span> is the number of time user <span
+class="math inline">\(u\)</span> interacted with artist <span
+class="math inline">\(i\)</span> (e.g. listened to him). The file <span
+style="color: blue"><code>artists.txt</code></span> contains
+tab-separated pairs (one triplet per line) of the form <span
+class="math inline">\(&lt;i, s_i&gt;\)</span>, where <span
+class="math inline">\(i\)</span> is an artist and <span
+class="math inline">\(s_i\)</span>, where <span
+class="math inline">\(i\)</span> is an artist label and <span
+class="math inline">\(s_i\)</span> is the name of the artist.</p>
+<p>For the two datasets, calculate the sparsity ratio: <span
+class="math display">\[\alpha = \frac{\sum_{ui \in \mathcal{U} \times
+\mathcal{I}}\mathds{1}[\![r_{ui} &gt; 0]\!]}{\sum_{ui \in \mathcal{U}
+\times \mathcal{I}}\mathds{1}[\![r_{ui} = 0]\!]}\]</span> Then,
+implement the implicit feedback recommendation system via ALS for this
+dataset. Here we assume <span class="math inline">\(f = 5\)</span> and
+<span class="math inline">\(\lambda = 0.1\)</span>. For initialization,
+set <span class="math inline">\(\bm{X}^{(0)}\)</span> as a matrix with
+all elements <span class="math inline">\(= 0.5\)</span> and <span
+class="math inline">\(\bm{Y}^{(0)}\)</span> as a zero matrix. Run your
+program for 1000 iteration. Plot the value of the objective function
+<span class="math inline">\(C_\text{implicit}\)</span> as a function of
+the number of iterations. Report the predicted preference <span
+class="math inline">\(\hat{p}_{ui} = \bm{x}_u^T \bm{y}_i\)</span> for
+<span class="math inline">\(u = 30\)</span> and <span
+class="math inline">\(i = 83\)</span> (Lady Gaga). See below for
+additional instructions on what to report.</p>
+<p><strong>Additional Instructions:</strong></p>
+<p>We found that there might be subtle variations in the final values
+based on the implementation and runtime environment. For minimizing
+these variations, please follow these instructions:</p>
+<ol type="1">
+<li><p>For ensuring consistent environments, <strong>please use Google
+Colab</strong> for running your code.</p></li>
+<li><p>Please do not round off values at any stage including the
+sparsity ratio (compute it programmatically). Also, avoid using explicit
+floating point precision typecasting such as
+<strong>dtype=np.float32</strong>.</p></li>
+<li><p>Please report the predicted preference <span
+class="math inline">\(\hat{p}_{30,83}\)</span> <strong>after each
+iteration for the first 10 iterations</strong> and the final value after
+<strong>1000 iterations</strong>.</p></li>
+<li><p>Remember to use the correct sparsity ratio and the new number of
+users and items for the two datasets.<br />
+<br />
+<em>Hint 1:</em> For the <code>user_artists_small.txt</code> dataset,
+the <span class="math inline">\(\hat{p}_{30,83}\)</span> value in the
+first two iterations would be in the range <span
+class="math inline">\((0.5, 0.7)\)</span> and the final value after 1000
+iterations would be in the range <span
+class="math inline">\((0.1,0.2)\)</span>.<br />
+<br />
+<em>Hint 2:</em> For the <code>user_artists_synthetic.txt</code>
+dataset, the <span class="math inline">\(\hat{p}_{30,83}\)</span> value
+in the first two iterations would be in the range <span
+class="math inline">\((0.2, 0.3)\)</span> and the final value after 1000
+iterations would be in the range <span
+class="math inline">\((0.3,0.4)\)</span>.</p></li>
+</ol></li>
+</ol>
+<p><strong>What to submit:</strong></p>
+<ol type="i">
+<li><p>Answer to <a href="#q:imp_fb" data-reference-type="ref"
+data-reference="q:imp_fb">3</a>(a).</p></li>
+<li><p>Proof for optimality of <span
+class="math inline">\(\bm{x}_{u}=\left(\bm{Y}^{T} \bm{C}_u
+\bm{Y}+\lambda \bm{I}\right)^{-1} \bm{Y}^{T} \bm{C}_u
+\bm{p}_u\)</span>.</p></li>
+<li><p>The runtime complexity of computing <span
+class="math inline">\(\bm{Y}^{T} \left(\bm{C}_{u} - \bm{I}\right)
+\bm{Y}\)</span> and of updating <span
+class="math inline">\(\bm{X}\)</span> [parts <a href="#q:imp_fb"
+data-reference-type="ref" data-reference="q:imp_fb">3</a>(c) and <a
+href="#q:imp_fb" data-reference-type="ref"
+data-reference="q:imp_fb">3</a>(d)].</p></li>
+<li><p>The sparsity ratio <span class="math inline">\(\alpha\)</span>
+for the two datasets.</p></li>
+<li><p>The value of <span class="math inline">\(\hat{p}_{30,83}\)</span>
+for the two datasets after each of the first 10 iterations.</p></li>
+<li><p>The final value of <span
+class="math inline">\(\hat{p}_{30,83}\)</span> for the two datasets
+after 1000 iterations.</p></li>
+<li><p>A plot of <span class="math inline">\(C_\text{implicit}\)</span>
+vs. the iteration over the execution of your implementation of ALS for
+both the datasets.</p></li>
+<li><p>Upload your implementation for ALS to Gradescope. You can use any
+of the two datasets as input to the code you are submitting.</p></li>
+</ol>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><span id="foot:phi-overloading"
+label="foot:phi-overloading"></span> We are overloading the notation
+here. The more precise way to express <span
+class="math inline">\(\phi(i)\)</span> would be <span
+class="math inline">\(\phi(\mathcal{C}_i)\)</span>, where <span
+class="math inline">\(\mathcal{C}_i\)</span> is the set of centroids
+after iteration <span class="math inline">\(i\)</span>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Same as footnote <a href="#foot:phi-overloading"
+data-reference-type="ref" data-reference="foot:phi-overloading">1</a><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This dataset was built by the Information Retrieval
+group at Universidad Autonoma de Madrid (http://ir.ii.uam.es).<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>
