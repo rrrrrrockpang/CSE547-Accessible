@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Homework 1</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Homework 1</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#spark-35-pts">Spark (35 pts)</a>
+<ul>
+<li><a href="#what-to-submit">What to submit</a></li>
+</ul></li>
+<li><a href="#association-rules-45-pts">Association Rules (45 pts)</a>
+<ul>
+<li><a href="#a-4pts">(a) [4pts]</a></li>
+<li><a href="#b-5pts">(b) [5pts]</a></li>
+<li><a href="#c-6pts">(c) [6pts]</a></li>
+<li><a href="#d-15pts">(d) [15pts]</a></li>
+<li><a href="#e-15pts">(e) [15pts]</a></li>
+<li><a href="#what-to-submit-1">What to submit</a></li>
+</ul></li>
+<li><a href="#locality-sensitive-hashing-20-pts">Locality-Sensitive Hashing (20 pts)</a>
+<ul>
+<li><a href="#a-7pts">(a) [7pts]</a></li>
+<li><a href="#b-7pts">(b) [7pts]</a></li>
+<li><a href="#c-6pts-1">(c) [6pts]</a></li>
+<li><a href="#what-to-submit-2">What to submit</a></li>
+</ul></li>
+</ul>
+</nav>
+<p><br />
+<strong>Assignment Submission</strong> All students should submit their assignments electronically via GradeScope. No handwritten work will be accepted. Math formulas <strong>must</strong> be typeset using LaTeX or other word processing software that supports mathematical symbols (E.g. Google Docs, Microsoft Word). Simply sign up on Gradescope and use the course code V84RPB. Please use your UW NetID if possible.<br />
+<br />
+For the non-coding component of the homework, you should upload a PDF rather than submitting as images. We will use Gradescope for the submission of code as well. Please make sure to tag each part correctly on Gradescope so it is easier for us to grade. There will be a small point deduction for each mistagged page and for each question that includes code. Put all the code for a single question into a single file and upload it. Only files in text format (e.g. .txt, .py, .java) will be accepted. <strong>There will be no credit for coding questions without submitted code on Gradescope, or for submitting it after the deadline</strong>, so please remember to submit your code.<br />
+<br />
+<strong>Coding</strong> You may use any programming languages and standard libraries, such as NumPy and PySpark, but you may not use specialized packages and, in particular, machine learning libraries (e.g. sklearn, TensorFlow), unless stated otherwise. Ask on the discussion board whether specific libraries are allowed if you are unsure.</p>
+<p><strong>Late Day Policy</strong> All students will be given two no-questions-asked late periods, but only one late period can be used per homework and cannot be used for project deliverables. A late-period lasts 48 hours from the original deadline (so if an assignment is due on Thursday at 11:59 pm, the late period goes to the Saturday at 11:59pm Pacific Time).<br />
+<br />
+<strong>Academic Integrity</strong> We take <a href="https://www.cs.washington.edu/academics/misconduct">academic integrity</a> extremely seriously. We strongly encourage students to form study groups. Students may discuss and work on homework problems in groups. However, each student must write down the solutions and the code independently. In addition, each student should write down the set of people whom they interacted with.<br />
+Discussion Group (People with whom you discussed ideas used in your answers):<br />
+On-line or hardcopy documents used as part of your answers:<br />
+I acknowledge and accept the Academic Integrity clause.<br />
+<em>(Signed)</em></p>
+<h1 id="spark-35-pts">Spark (35 pts)</h1>
+<p>In this question, you will improve your Spark programming skills and practice composing an algorithm into map and reduce functions. Implementing a simple friendship recommendation algorithm using Spark will also help you with the next assignments and the class project.</p>
+<p>Write a Spark program that implements a simple “People You Might Know” social network friendship recommendation algorithm. The key idea is that if two people have a lot of mutual friends, then the system should recommend that they connect with each other.</p>
+<p><span><strong>Data:</strong></span></p>
+<ul>
+<li><p>Associated data file is in <span><code>q1/data</code></span>.</p></li>
+<li><p>The file contains the adjacency list and has multiple lines in the following format:</p>
+<p><span><code>&lt;User&gt;&lt;TAB&gt;&lt;Friends&gt;</code></span></p>
+<p>Here, <span><code>&lt;User&gt;</code></span> is a unique integer ID corresponding to a unique user and <span><code>&lt;Friends&gt;</code></span> is a comma separated list of unique IDs corresponding to the friends of the user with the unique ID <span><code>&lt;User&gt;</code></span>. Note that the friendships are mutual (i.e., edges are undirected): if <span class="math inline">\(A\)</span> is friend with <span class="math inline">\(B\)</span> then <span class="math inline">\(B\)</span> is also friend with <span class="math inline">\(A\)</span>. The data provided is consistent with that rule as there is an explicit entry for each side of each edge.</p></li>
+</ul>
+<p><span><strong>Algorithm:</strong></span> Let us use a simple algorithm such that, for each user <span class="math inline">\(U\)</span>, the algorithm recommends <span class="math inline">\(N=10\)</span> users who are not already friends with <span class="math inline">\(U\)</span>, but have the most number of mutual friends in common with <span class="math inline">\(U\)</span>. Note that you are asked to come up with a simple algorithm yourself.</p>
+<p><span><strong>Output:</strong></span></p>
+<ul>
+<li><p>The output should contain one line per user in the following format:</p>
+<p><span><code>&lt;User&gt;&lt;TAB&gt;&lt;Recommendations&gt;</code></span></p>
+<p>where <span><code>&lt;User&gt;</code></span> is a unique ID corresponding to a user and <span><code>&lt;Recommendations&gt;</code></span> is a comma separated list of unique IDs corresponding to the algorithm’s recommendation of people that <span><code>&lt;User&gt;</code></span> might know, ordered in decreasing number of mutual friends.</p></li>
+<li><p>Even if a user has less than 10 second-degree friends, output all of them in decreasing order of the number of mutual friends. If a user has no friends, you can provide an empty list of recommendations. If there are recommended users with the same number of mutual friends, then output those user IDs in numerically ascending order.</p></li>
+</ul>
+<p><span><strong>Pipeline sketch:</strong></span> Please provide a description of how you used Spark to solve this problem. Don’t write more than 3 to 4 sentences for this: we only want a very high-level description of your strategy to tackle this problem.</p>
+<p><span><strong>Note:</strong></span> Please implement and run your algorithm on <strong>all users</strong>. In your writeup, please include <strong>only</strong> the recommendations for the users with following user IDs: 924, 8941, 8942, 9019, 9020, 9021, 9022, 9990, 9992, 9993.</p>
+<p><span><strong>Tips:</strong></span></p>
+<ul>
+<li><p>Before submitting a complete application to Spark, you may use the Shell to go line by line, checking the outputs of each step. Command <span><code>.take(X)</code></span> should be helpful, if you want to check the first <span><code>X</code></span> elements in the RDD.</p></li>
+<li><p>For sanity check, your top 10 recommendations for <strong>user ID 11</strong> should be:<br />
+<span><code>27552,7785,27573,27574,27589,27590,27600,27617,27620,27667</code></span>.</p></li>
+<li><p>The default memory assigned to the Spark runtime may not be enough to process this data file, depending on how you write your algorithm. If your Spark job fails with a message starting as:</p>
+<pre data-fontsize="\scriptsize"><code>17/12/28 10:50:35 INFO DAGScheduler: Job 0 failed: sortByKey at FriendsRecomScala.scala:45, took 519.084974 s
+Exception in thread &quot;main&quot; org.apache.spark.SparkException:
+Job aborted due to stage failure: Task 0 in stage 2.0 failed 1 times, most recent failure:
+Lost task 0.0 in stage 2.0 (TID 4, localhost, executor driver)</code></pre>
+<p>then you’ll very likely need to increase the memory assigned to the Spark runtime. If you are running in stand-alone mode (i.e. you did not setup a Spark cluster), use <span><code>–driver-memory 8G</code></span> to set the runtime memory to 8GB. If you are running on a Spark cluster, use <span><code>–executor-memory 8G</code></span> to set the memory to 8GB. If you are using Google CoLab, you can use the following lines:<br />
+<code>from pyspark import SparkConf </code><br />
+<code>conf=SparkConf().set(“spark.executor.memory”, “8g”)</code><br />
+</p></li>
+</ul>
+<h2 class="unnumbered" id="what-to-submit">What to submit</h2>
+<ol type="1">
+<li><p>Upload your code to Gradescope. <span><strong>Note:</strong></span> Please submit your code in text format (e.g., .py file).</p></li>
+<li><p>Include in your writeup a short paragraph sketching your spark pipeline.</p></li>
+<li><p>Include in your writeup the recommendations for the users with following user IDs: 924, 8941, 8942, 9019, 9020, 9021, 9022, 9990, 9992, 9993.</p></li>
+</ol>
+<h4 id="bigstar-solution"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p>Pipeline Sketch: A lot of the pipelines don’t account for people with no friends because none of the IDs we ask for include people with no friends. None of the IDs account for friends that are already friends with all the mutual friends either.</p>
+<p>One pipeline sketch:</p>
+<ol>
+<li><p>For each <code>User</code> <span class="math inline">\(u_a\)</span>, find all pairs <span class="math inline">\((u_a, u_b)\)</span> such that <span class="math inline">\(u_b\)</span> is in the <code>Friends</code> column when <span class="math inline">\(\texttt{User}=u_a\)</span>.</p></li>
+<li><p>For each pair, find <span class="math inline">\(C\)</span> = <span>(<span class="math inline">\(u_a\)</span>, <span class="math inline">\(u_c\)</span>) <span class="math inline">\(|\)</span> <span class="math inline">\(u_c\)</span> is a friend of <span class="math inline">\(u_b\)</span> but not a friend of <span class="math inline">\(u_a\)</span></span>, excluding when <span class="math inline">\(u_a\)</span>=<span class="math inline">\(u_c\)</span>.</p></li>
+<li><p>Count the number of occurrences of each element in <span class="math inline">\(C\)</span>, sort by count (desc) and <span class="math inline">\(u_c\)</span> (asc).</p></li>
+<li><p>Sort by <span class="math inline">\(u_a\)</span> and for each <span class="math inline">\(u_a\)</span>, get the top 10 friend suggestions.</p></li>
+</ol>
+<p>More detailed pipeline:</p>
+<ol>
+<li><p>Read in and partition data, map to (person, [friends])</p></li>
+<li><p>Generate pairs of all friends</p></li>
+<li><p>Self join on pairs of all friends to get suggestions</p></li>
+<li><p>Subtract out pairs that are already friends.</p></li>
+<li><p>Filter out pairs that suggest becoming friends with yourself</p></li>
+<li><p>Map each pair that still exists to 1</p></li>
+<li><p>Reduce candidate pairs and count them</p></li>
+<li><p>Map each candidate pair to the (person, (friend suggestion, no of mutual friends))</p></li>
+<li><p>Group by key to get a person and their list of friend suggestions</p></li>
+<li><p>Map values to sort by no of mutual friends (desc) and then friend suggestion (asc) and select out the friend suggestion</p></li>
+<li><p>Compute a difference of the keys between the original friend data and the suggestions to get the people with no friend suggestions</p></li>
+<li><p>Union these RDDs</p></li>
+<li><p>Sort by key</p></li>
+<li><p>Collect results and format accordingly</p></li>
+</ol>
+<p>Times achieved using 8 cores and minPartitions=20:</p>
+<ul>
+<li><p>Time to run normally: <span class="math inline">\(\sim\)</span> 4 minutes.</p></li>
+<li><p>You can optionally filter so that you only do work on the people you’re interested in. Time to run: <span class="math inline">\(\sim\)</span> 23 seconds.</p></li>
+<li><p>Technically for each person, you only need to do work on friends of friends, so you can ignore most of the entries earlier on. Time to run: <span class="math inline">\(\sim\)</span> 10 seconds.</p></li>
+</ul>
+<p>Recommendations for the 10 users: 439,2409,6995,11860,15416,43748,45881 8943,8944,8940 8939,8940,8943,8944 9022,317,9023 9021,9016,9017,9022,317,9023 9020,9016,9017,9022,317,9023 9019,9020,9021,317,9016,9017,9023 13134,13478,13877,34299,34485,34642,37941 9987,9989,35667,9991 9991,13134,13478,13877,34299,34485,34642,37941</p>
+<h1 id="association-rules-45-pts">Association Rules (45 pts)</h1>
+<p>Association Rules are frequently used for Market Basket Analysis (MBA) by retailers to understand the purchase behavior of their customers. This information can be then used for many different purposes such as cross-selling and up-selling of products, sales promotions, loyalty programs, store design, discount plans and many others.</p>
+<p>In this question, you will investigate the association rules in more detail which can enable you to select more informative and suitable rules for various recommendation systems in the future.</p>
+<p><strong>Evaluation of item sets:</strong> Once you have found the frequent itemsets of a dataset, you need to choose a subset of them as your recommendations. Commonly used metrics for measuring significance and interest for selecting rules for recommendations are:</p>
+<ol>
+<li><p><strong>Confidence</strong> (denoted as <span class="math inline">\(\mathop{\mathrm{conf}}(A \rightarrow B)\)</span>): <em>Confidence</em> is defined as the probability of occurrence of <span class="math inline">\(B\)</span> in the basket if the basket already contains <span class="math inline">\(A\)</span>: <span class="math display">\[\mathop{\mathrm{conf}}(A \rightarrow B) = \Pr(B|A),\]</span> where <span class="math inline">\(\Pr(B|A)\)</span> is the conditional probability of finding item set <span class="math inline">\(B\)</span> given that item set <span class="math inline">\(A\)</span> is present.</p></li>
+<li><p><strong>Lift</strong> (denoted as <span class="math inline">\(\mathop{\mathrm{lift}}(A \rightarrow B)\)</span>): <em>Lift</em> measures how much more “<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> occur together” than “what would be expected if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> were statistically independent”: <span class="math display">\[\mathop{\mathrm{lift}}(A \rightarrow B) = \frac{\mathop{\mathrm{conf}}(A \rightarrow B)}{S(B)},\]</span> where <span class="math inline">\(S(B) = \frac{\mathop{\mathrm{Support}}(B)}{N}\)</span> and <span class="math inline">\(N=\text{total number of transactions (baskets)}\)</span>.</p></li>
+<li><p><strong>Conviction</strong> (denoted as <span class="math inline">\(\mathop{\mathrm{conv}}(A \rightarrow B)\)</span>): <em>Conviction</em> compares the “probability that <span class="math inline">\(A\)</span> appears without <span class="math inline">\(B\)</span> if they were independent” with the “actual frequency of the appearance of <span class="math inline">\(A\)</span> without <span class="math inline">\(B\)</span>”: <span class="math display">\[\mathop{\mathrm{conv}}(A \rightarrow B) = \frac{1-S(B)}{1-\mathop{\mathrm{conf}}(A \rightarrow B)}.\]</span></p></li>
+</ol>
+<h3 class="unnumbered" id="a-4pts">(a) [4pts]</h3>
+<p>A drawback of using <em>confidence</em> is that it ignores <span class="math inline">\(\Pr(B)\)</span>. Why is this a drawback? Explain why <em>lift</em> and <em>conviction</em> do not suffer from this drawback.</p>
+<h4 id="bigstar-solution-1"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p>It ignores <span class="math inline">\(\Pr(B)\)</span>. In some cases, it may lead to incorrect rules. For e.g.: occurrence of <span class="math inline">\(B\)</span> may be unrelated to <span class="math inline">\(A\)</span> (e.g. <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent, such that <span class="math inline">\(\mathop{\mathrm{conf}}(A \rightarrow B) = \Pr(B|A) = \Pr(B)\)</span>) but <span class="math inline">\(B\)</span> has high support, so that <span class="math inline">\(A \rightarrow B\)</span> is identified as a valid rule.</p>
+<p>By observing the formulas, we can see that <span class="math inline">\(\mathop{\mathrm{conv}}\)</span> and <span class="math inline">\(\mathop{\mathrm{lift}}\)</span> take <span class="math inline">\(\Pr(B)\)</span> into account.</p>
+<h3 class="unnumbered" id="b-5pts">(b) [5pts]</h3>
+<p>A measure is <em>symmetrical</em> if <span class="math inline">\(\text{measure}(A \rightarrow B) = \text{measure}(B \rightarrow A)\)</span>. Which of the measures presented here are symmetrical? For each measure, please provide either a proof that the measure is symmetrical, or a counterexample that shows the measure is not symmetrical.</p>
+<h4 id="bigstar-solution-2"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p>Lift is symmetrical. Confidence and conviction are not since confidence and conviction are directional but lift is not.</p>
+<p>1. lift(<span class="math inline">\(A \rightarrow B\)</span>) = lift(<span class="math inline">\(B \rightarrow A\)</span>) = <span class="math inline">\(\frac{N \cdot \mathop{\mathrm{Support}}(A \cup B)}{\mathop{\mathrm{Support}}(A) \mathop{\mathrm{Support}}(B)}\)</span><br />
+2. conf(<span class="math inline">\(A \rightarrow B\)</span>) = <span class="math inline">\(\frac{\mathop{\mathrm{Support}}(A \cup B)}{\mathop{\mathrm{Support}}(A)}\)</span> and conf(<span class="math inline">\(B \rightarrow A\)</span>) = <span class="math inline">\(\frac{\mathop{\mathrm{Support}}(A \cup B)}{\mathop{\mathrm{Support}}(B)}\)</span>. <span class="math inline">\(\mathop{\mathrm{Support}}(A)\)</span> and <span class="math inline">\(\mathop{\mathrm{Support}}(B)\)</span> might be different.<br />
+3. conv is based on conf and is directional.</p>
+<p><strong>Example:</strong><br />
+If we have baskets AB, AC, AD, then S(A) = 3/3, S(B) = 1/3, and <span class="math inline">\(\Pr(A, B)=1/3\)</span>.<br />
+Then conf(<span class="math inline">\(A \rightarrow B\)</span>)=<span class="math inline">\(\Pr(B|A) \neq \Pr(A|B)\)</span> = conf(<span class="math inline">\(B \rightarrow A\)</span>) since: <span class="math inline">\(\frac{1/3}{3/3} \neq \frac{1/3}{1/3}\)</span>.</p>
+<p>Similarly, conv(<span class="math inline">\(A \rightarrow B\)</span>)=<span class="math inline">\(\frac{1-S(B)} {1-conf(A\rightarrow B)} \neq \frac{1-S(A)} {1-conf(B\rightarrow A)}\)</span>= conv(<span class="math inline">\(B \rightarrow A\)</span>) since: <span class="math inline">\(\frac{1-1/3}{1-1/2}\)</span> = 4/3 <span class="math inline">\(\neq \frac{1-2/3}{1-1}\)</span> = inf.</p>
+<h3 class="unnumbered" id="c-6pts">(c) [6pts]</h3>
+<p><em>Perfect implications</em> are rules that hold 100% of the time (or equivalently, the associated conditional probability is 1). A measure is <em>desirable</em> if it reaches its maximum achievable value for all perfect implications. This makes it easy to identify the best rules. Which of the above measures have this property? You may ignore <span class="math inline">\(0/0\)</span> but not other infinity cases. Also you may find it easy to explain by an example.</p>
+<h4 id="bigstar-solution-3"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p>Conviction and confidence are desirable while lift is not. If <span class="math inline">\(B\)</span> occurs every time <span class="math inline">\(A\)</span> occurs then</p>
+<p>1. conf(<span class="math inline">\(A \rightarrow B\)</span>) = 1<br />
+2. conv(<span class="math inline">\(A \rightarrow B\)</span>) <span class="math inline">\(\rightarrow\)</span> infinity<br />
+3. lift(<span class="math inline">\(A \rightarrow B\)</span>) depends on the value of <span class="math inline">\(\Pr(B)\)</span> and may differ as <span class="math inline">\(B\)</span> might occur in baskets which do not have <span class="math inline">\(A\)</span>.</p>
+<p><strong>Example:</strong><br />
+If we have baskets AB, AB, CD, EF, then conf<span class="math inline">\((A \rightarrow B) = 1\)</span>, <span class="math inline">\(S(B) = 1/2\)</span>, conf<span class="math inline">\((C \rightarrow D) = 1\)</span>, and <span class="math inline">\(S(D) = 1/4\)</span>.<br />
+Then lift(<span class="math inline">\(A \rightarrow B\)</span>) = <span class="math inline">\(\frac{1}{1/2}\)</span> = 2 and lift(<span class="math inline">\(C \rightarrow D\)</span>) = <span class="math inline">\(\frac{1}{1/4}\)</span> = 4. Although both rules are 100% rules, they have different lift scores.</p>
+<h4 id="application-in-product-recommendations">Application in product recommendations:</h4>
+<p>The action or practice of selling additional products or services to existing customers is called <em>cross-selling</em>. Giving product recommendation is one of the examples of cross-selling that are frequently used by online retailers. One simple method to give product recommendations is to recommend products that are frequently browsed together by the customers.</p>
+<p>Suppose we want to recommend new products to the customer based on the products they have already browsed online. Implement the <em>A-priori</em> algorithm and write a program using your implementation to find products which are frequently browsed together. Fix the support to <span class="math inline">\(s=\)</span>100 (<em>i.e.</em> product pairs need to occur together at least 100 times to be considered frequent) and find itemsets of size 2 and 3.</p>
+<p>Use the online browsing behavior dataset from in <span><code>q2/data</code></span>. Each line represents a browsing session of a customer. On each line, each string of 8 characters represents the ID of an item browsed during that session. The items are separated by spaces.</p>
+<p>Note: for parts (d) and (e), the writeup will require a specific rule ordering but the program need not sort the output. We are not giving partial credits to coding when results are wrong. However, three sanity checks are provided and they should be helpful when you progress: (1) there are 647 frequent items after <span class="math inline">\(1^{\textrm{st}}\)</span> pass (<span class="math inline">\(|L_1|=647\)</span>), (2) there are 1334 frequent pairs after <span class="math inline">\(2^{\textrm{nd}}\)</span> pass (<span class="math inline">\(|L_2|=1334\)</span>), (3) the top 5 pairs you should produce in part (d) all have confidence scores greater than 0.985. See detailed instructions below. You don’t need to use Spark unless you want to.</p>
+<h3 class="unnumbered" id="d-15pts">(d) [15pts]</h3>
+<p>Identify pairs of items <span class="math inline">\((X,Y)\)</span> such that the support of <span class="math inline">\(\{X,Y\}\)</span> is at least <span class="math inline">\(100\)</span> and list the top 5 pairs with the highest support in the writeup. For all such pairs (the support of <span class="math inline">\(\{X,Y\}\)</span> is at least <span class="math inline">\(100\)</span>), compute the <em>confidence</em> scores of the corresponding association rules: <span class="math inline">\(X \Rightarrow Y\)</span>, <span class="math inline">\(Y \Rightarrow X\)</span>. Sort the rules in decreasing order of <em>confidence</em> scores and list the top 5 rules in the writeup. Break ties, if any, by lexicographically increasing order on the left hand side of the rule.</p>
+<h4 id="bigstar-solution-4"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p><span> Top 15 pairs by support (only need top 5):<br />
+ELE17451 - DAI62779 1592<br />
+FRO40251 - SNA80324 1412<br />
+FRO40251 - DAI75645 1254<br />
+FRO40251 - GRO85051 1213<br />
+GRO73461 - DAI62779 1139<br />
+SNA80324 - DAI75645 1130<br />
+DAI62779 - FRO40251 1070<br />
+DAI62779 - SNA80324 923<br />
+DAI62779 - DAI85309 918<br />
+GRO59710 - ELE32164 911<br />
+DAI62779 - DAI75645 882<br />
+GRO73461 - FRO40251 882<br />
+DAI62779 - ELE92920 877<br />
+FRO40251 - FRO92469 835<br />
+DAI62779 - ELE32164 832<br />
+Top 15 pairs by confidence (only need top 5):<br />
+DAI93865<span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+GRO85051<span class="math inline">\(\Rightarrow\)</span>FRO40251 0.999176276771<br />
+GRO38636<span class="math inline">\(\Rightarrow\)</span>FRO40251 0.990654205607<br />
+ELE12951<span class="math inline">\(\Rightarrow\)</span>FRO40251 0.990566037736<br />
+DAI88079<span class="math inline">\(\Rightarrow\)</span>FRO40251 0.986725663717<br />
+FRO92469<span class="math inline">\(\Rightarrow\)</span>FRO40251 0.983510011779<br />
+DAI43868<span class="math inline">\(\Rightarrow\)</span>SNA82528 0.972972972973<br />
+DAI23334<span class="math inline">\(\Rightarrow\)</span>DAI62779 0.954545454545<br />
+ELE92920<span class="math inline">\(\Rightarrow\)</span>DAI62779 0.732664995823<br />
+DAI53152<span class="math inline">\(\Rightarrow\)</span>FRO40251 0.717948717949<br />
+SNA18336<span class="math inline">\(\Rightarrow\)</span>DAI62779 0.713681241185<br />
+ELE55848<span class="math inline">\(\Rightarrow\)</span>GRO32086 0.709459459459<br />
+GRO89004<span class="math inline">\(\Rightarrow\)</span>ELE25077 0.698051948052<br />
+GRO81647<span class="math inline">\(\Rightarrow\)</span>GRO73461 0.677551020408<br />
+DAI37288<span class="math inline">\(\Rightarrow\)</span>ELE32164 0.646408839779<br />
+</span></p>
+<h3 class="unnumbered" id="e-15pts">(e) [15pts]</h3>
+<p>Identify item triples <span class="math inline">\((X,Y,Z)\)</span> such that the support of <span class="math inline">\(\{X,Y,Z\}\)</span> is at least <span class="math inline">\(100\)</span> and list the top 5 triples with the highest support in the writeup. For all such triples (the support of <span class="math inline">\(\{X,Y,Z\}\)</span> is at least <span class="math inline">\(100\)</span>), compute the <em>confidence</em> scores of the corresponding association rules: <span class="math inline">\((X,Y) \Rightarrow Z\)</span>, <span class="math inline">\((X,Z) \Rightarrow Y\)</span>, <span class="math inline">\((Y,Z) \Rightarrow X\)</span>. Sort the rules in decreasing order of <em>confidence</em> scores and list the top 5 rules in the writeup. Order the left-hand-side pair lexicographically and break ties, if any, by lexicographical order of the first then the second item in the pair.</p>
+<h4 id="bigstar-solution-5"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p><span> Top 15 triples by support (only need top 5):<br />
+FRO40251 - SNA80324 - DAI75645 550<br />
+DAI62779 - FRO40251 - SNA80324 476<br />
+FRO40251 - GRO85051 - SNA80324 471<br />
+SNA18336 - DAI62779 - ELE92920 432<br />
+DAI62779 - SNA80324 - DAI75645 421<br />
+ELE17451 - DAI62779 - SNA80324 417<br />
+DAI62779 - FRO40251 - DAI75645 412<br />
+ELE17451 - DAI62779 - FRO40251 406<br />
+FRO40251 - GRO85051 - DAI75645 395<br />
+DAI62779 - FRO40251 - GRO85051 381<br />
+ELE17451 - FRO40251 - SNA80324 353<br />
+ELE17451 - DAI62779 - ELE92920 345<br />
+FRO40251 - SNA80324 - FRO92469 343<br />
+ELE17451 - DAI62779 - DAI85309 339<br />
+ELE17451 - DAI62779 - DAI75645 328<br />
+Top 15 triples by confidence (only need top 5):<br />
+<span>DAI23334,ELE92920</span><span class="math inline">\(\Rightarrow\)</span>DAI62779 1.0<br />
+<span>DAI31081,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>DAI55911,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>DAI62779,DAI88079</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>DAI75645,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>ELE17451,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>ELE20847,FRO92469</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>ELE20847,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>ELE26917,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>FRO53271,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>GRO21487,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>GRO38814,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>GRO73461,GRO85051</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>GRO85051,SNA45677</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+<span>GRO85051,SNA80324</span><span class="math inline">\(\Rightarrow\)</span>FRO40251 1.0<br />
+</span></p>
+<h2 class="unnumbered" id="what-to-submit-1">What to submit</h2>
+<p>Upload all the code to Gradescope and include the following in your writeup:</p>
+<ol type="i">
+<li><p>Explanation for 2(a).</p></li>
+<li><p>Proofs and/or counterexamples for 2(b).</p></li>
+<li><p>Explanation for 2(c).</p></li>
+<li><p>Top 5 pairs [2(d)].</p></li>
+<li><p>Top 5 rules with confidence scores [2(d)].</p></li>
+<li><p>Top 5 triples [2(e)].</p></li>
+<li><p>Top 5 rules with confidence scores [2(e)].</p></li>
+</ol>
+<h1 id="locality-sensitive-hashing-20-pts">Locality-Sensitive Hashing (20 pts)</h1>
+<p>When simulating a random permutation of rows, as described in <strong>Sect. 3.3.5</strong> of MMDS, we could save time if we restricted our attention to a randomly chosen <span class="math inline">\(k\)</span> of the <span class="math inline">\(n\)</span> rows, rather than hashing all <span class="math inline">\(n\)</span> row numbers. The downside of doing so is that, if none of the <span class="math inline">\(k\)</span> rows contains a <span class="math inline">\(1\)</span> in a certain column, then the result of the minhashing is “don’t know”. In other words, we get no row number as the minhash value. It would be a mistake to assume that two columns that both minhash to “don’t know” are likely to be similar. However, if the probability of getting “don’t know” as a minhash value is small, we can tolerate the situation and simply ignore such minhash values when computing the fraction of minhashes in which two columns agree.</p>
+<p>You will try to understand the process of selecting an appropriate <span class="math inline">\(k\)</span> value and how it affects the computation of the minhash. This exercise will highlight the importance of parameter selection for LSH.</p>
+<p>In part (a) we determine an upper bound on the probability of getting “don’t know” as the minhash value when considering only a <span class="math inline">\(k\)</span>-subset of the <span class="math inline">\(n\)</span> rows, and in part (b) we use this bound to determine an appropriate choice for <span class="math inline">\(k\)</span>, given our tolerance for this probability.</p>
+<h3 class="unnumbered" id="a-7pts">(a) [7pts]</h3>
+<p>Suppose a column has <span class="math inline">\(m\)</span> 1’s and therefore <span class="math inline">\(n-m\)</span> 0’s, and we randomly choose k rows to consider when computing the minhash. Prove that the probability of getting “don’t know” as the minhash value for this column is at most <span class="math inline">\(\left(\frac{n-k}{n}\right)^m\)</span> (Note: m is the power, not a multiplication).</p>
+<h4 id="bigstar-solution-6"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p><span>The number of columns with <span class="math inline">\(m\)</span> 1’s out of <span class="math inline">\(n\)</span> is <span class="math inline">\(\binom{n}{m}\)</span>. The number of these columns that have no 1 in one of the <span class="math inline">\(k\)</span> selected rows is <span class="math inline">\(\binom{n-k}{m}\)</span>. The probability of no 1 in the chosen <span class="math inline">\(k\)</span> rows is therefore the latter divided by the former. If we expand the binomial coefficients in terms of factorials, we get <span class="math inline">\(\frac{(n-k)!m!(n-m)!}{m!(n-k-m)!n!}\)</span>. The <span class="math inline">\(m!\)</span>’s cancel, and when we reorganize we can write this expression as <span class="math inline">\((\frac{n-k}{n})(\frac{n-k-1}{n-1})\cdots(\frac{n-k-m+1}{n-m+1})\)</span>. Each of the <span class="math inline">\(m\)</span> factors is at most <span class="math inline">\((\frac{n-k}{n})\)</span>. Thus, their product is at most <span class="math inline">\((\frac{n-k}{n})^m\)</span>.</span></p>
+<h3 class="unnumbered" id="b-7pts">(b) [7pts]</h3>
+<p>Suppose we want the probability of “don’t know” to be at most <span class="math inline">\(e^{-10}\)</span>. Assuming <span class="math inline">\(n\)</span> and <span class="math inline">\(m\)</span> are both very large (but <span class="math inline">\(n\)</span> is much larger than <span class="math inline">\(m\)</span> or <span class="math inline">\(k\)</span>), give a simple approximation to the smallest value of <span class="math inline">\(k\)</span> that will ensure this probability is at most <span class="math inline">\(e^{-10}\)</span>. Your expression should be a function of <span class="math inline">\(n\)</span> and <span class="math inline">\(m\)</span>. Hints: (1) Part a. (2) Remember that for any <span class="math inline">\(x \in \mathbb{R}\)</span>, <span class="math inline">\(1 + x \le e^x\)</span>.</p>
+<h4 id="bigstar-solution-7"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p>We want <span class="math inline">\((\frac{n-k}{n})^m \le e^{-10}\)</span>. Equivalently, <span class="math inline">\((1-\frac{k}{n})^m \leq e^{-10}\)</span>. If we multiply and divide the exponent by <span class="math inline">\(n/k\)</span>, we see this condition is equivalent to <span class="math inline">\(\bigl((1-\frac{k}{n})^{n/k}\bigr)^{mk/n} \le e^{-10}\)</span>. Since we assume <span class="math inline">\(k &lt;&lt;
+n\)</span>, we can approximate <span class="math inline">\((1-\frac{k}{n})^{n/k}\)</span> by <span class="math inline">\(1/e\)</span>. That makes the desired condition <span class="math inline">\(e^{-mk/n} \le e^{-10}\)</span>. Thus, the first exponent must be less than or equal to the second; i.e., <span class="math inline">\(-mk/n \le -10\)</span>, or <span class="math inline">\(mk/n\ge 10\)</span>. That, in turn means <span class="math inline">\(k \ge 10n/m\)</span>, so the correct answer, the lower bound on <span class="math inline">\(k\)</span>, is <span class="math inline">\(10n/m\)</span>.</p>
+<p>Alternatively: <span class="math display">\[\begin{aligned}
+    \left(\frac{n-k}{n}\right)^m   &amp;\leq e^{-10}       \\
+    \left(1 - \frac{k}{n}\right)^m &amp;\leq e^{-10}       \\
+    1 - \frac{k}{n}                 &amp;\leq e^{-10/m}     \\
+    1 - e^{-10/m}                   &amp;\leq \frac{k}{n}   \\
+    n(1 - e^{-10/m})                &amp;\leq k             \\\end{aligned}\]</span></p>
+<h3 class="unnumbered" id="c-6pts-1">(c) [6pts]</h3>
+<p>In LSH, there are relationships between different similarity metrics and hash functions. In this question, we will go over an example where the similarity metric and the hash function do not match.</p>
+<p>Note: Part (c) should be considered separate from the previous two parts, in that we are no longer restricting our attention to a randomly chosen subset of the rows.</p>
+<p>When minhashing, one might expect that we could estimate the Jaccard similarity without using all possible permutations of rows. For example, we could only allow cyclic permutations, i.e. start at a randomly chosen row <span class="math inline">\(r\)</span>, which becomes the first in the order, followed by rows <span class="math inline">\(r + 1\)</span>, <span class="math inline">\(r + 2\)</span>, and so on, down to the last row, and then continuing with the first row, second row, and so on, down to row <span class="math inline">\(r - 1\)</span>. There are only <span class="math inline">\(n\)</span> such permutations if there are <span class="math inline">\(n\)</span> rows. However, these permutations are not sufficient to estimate the Jaccard similarity correctly.</p>
+<p>Give an example of two columns such that the probability (over cyclic permutations only) that their minhash values agree is not the same as their Jaccard similarity. In your answer, please provide (a) an example of a matrix with two columns (let the two columns correspond to sets denoted by <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span>), (b) the Jaccard similarity of <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span>, and (c) the probability that a random cyclic permutation yields the same minhash value for both <span class="math inline">\(S1\)</span> and <span class="math inline">\(S2\)</span>.</p>
+<h4 id="bigstar-solution-8"><strong><span class="math inline">\(\bigstar\)</span> SOLUTION:</strong></h4>
+<p><span>The two columns (sets) are [0,1,0]<span class="math inline">\(^T\)</span> and [0,1,1]<span class="math inline">\(^T\)</span>. Jaccard similarity = 0.5. But if the cycle starts at either of the first two rows, the minhash values are the same, while if the cycle starts at the last row, then the minhash values differ. Thus, the probability of the minhash values agreeing is 2/3, when only cyclic permutations are allowed.</span></p>
+<h2 class="unnumbered" id="what-to-submit-2">What to submit</h2>
+<p>Include the following in your writeup:</p>
+<ol type="i">
+<li><p>Proof for 3(a)</p></li>
+<li><p>Derivation and final answer for 3(b)</p></li>
+<li><p>Example for 3(c) including the three requested items</p></li>
+</ol>
+</body>
+</html>
