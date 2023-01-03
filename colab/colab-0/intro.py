@@ -11,13 +11,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import logging
 
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', 
-                    level=logging.INFO, 
-                    handlers=[
-                            logging.FileHandler("./log/intro.log", "w+"),
-                            logging.StreamHandler()
-                    ]
-)
+def script_filter(record):
+    if record.name != __name__:
+        return False
+    return True
+
+handler = logging.StreamHandler()
+handler.filters = [script_filter]
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+fh = logging.FileHandler('./log/intro.log')
+logger.setLevel(logging.INFO)
+logger.addHandler(fh)
+
 
 import pyspark
 from pyspark.sql import *
@@ -67,21 +73,21 @@ Aircraft_Glossary = spark.read.json("./data/Aircraft_Glossary.json.gz")
 ## Step 4: check the schema. (check logging)
 bo = Bombing_Operations._jdf.schema().treeString()
 ag = Aircraft_Glossary._jdf.schema().treeString()
-logging.info("Step 4: {}".format(bo))
-logging.info("Step 4: {}".format(ag))
+logger.info("Step 4: {}".format(bo))
+logger.info("Step 4: {}".format(ag))
 # You can also show the schema by Bombing_Operations.printSchema() function but the output is not a string.
 
 # Step 5: get a sample with take(). (check logging)
-logging.info("Step 5: {}".format(Bombing_Operations.take(3)))
+logger.info("Step 5: {}".format(Bombing_Operations.take(3)))
 
 # Step 6: get a formatted sample in table format with a similar effect as take(). (check logging)
 formatted_Aircraft_Glossary = Aircraft_Glossary.limit(10).toPandas()
-logging.info("Step 6: ")
-logging.info('\t'+ formatted_Aircraft_Glossary.to_string().replace('\n', '\n\t'))  # formatted_Aircraft_Glossary is the dataframe
+logger.info("Step 6: ")
+logger.info('\t'+ formatted_Aircraft_Glossary.to_string().replace('\n', '\n\t'))  # formatted_Aircraft_Glossary is the dataframe
 
 # Step 7: get the number of rows in the dataset
 Bombing_Operations.count()
-logging.info("Step 7: In total there are {} operations".format(Bombing_Operations.count()))
+logger.info("Step 7: In total there are {} operations".format(Bombing_Operations.count()))
 
 # Housekeeping: Save dataset
 Bombing_Operations.write.mode("overwrite").parquet("./data/Bombing_Operations.parquet")
