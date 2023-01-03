@@ -7,13 +7,18 @@ import pyspark, logging
 from pyspark.sql import *
 from pyspark.sql.functions import *
 
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', 
-                    level=logging.INFO, 
-                    handlers=[
-                            logging.FileHandler("./log/section_1.log", "w+"),
-                            logging.StreamHandler()
-                    ]
-)
+def script_filter(record):
+    if record.name != __name__:
+        return False
+    return True
+    
+handler = logging.StreamHandler()
+handler.filters = [script_filter]
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+fh = logging.FileHandler('./log/section_1.log')
+logger.setLevel(logging.INFO)
+logger.addHandler(fh)
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -37,8 +42,8 @@ missions_counts = spark.sql(query)
 
 # Step 2: Check the dataframe. The Dataframe is small enough to be moved to Pandas:
 missions_count_pd = missions_counts.toPandas()
-logging.info("Step 2: Check the dataframe. The Dataframe is small enough to be moved to Pandas:")
-logging.info('\t'+ missions_count_pd.to_string().replace('\n', '\n\t'))  # missions_count_pd is a Pandas dataframe
+logger.info("Step 2: Check the dataframe. The Dataframe is small enough to be moved to Pandas:")
+logger.info('\t'+ missions_count_pd.to_string().replace('\n', '\n\t'))  # missions_count_pd is a Pandas dataframe
 
 # Step 3: Let's plot a barchart with the number of missions by country:
 pl = missions_count_pd.plot(kind="bar", 

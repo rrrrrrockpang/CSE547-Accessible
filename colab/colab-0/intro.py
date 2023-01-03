@@ -24,7 +24,6 @@ fh = logging.FileHandler('./log/intro.log')
 logger.setLevel(logging.INFO)
 logger.addHandler(fh)
 
-
 import pyspark
 from pyspark.sql import *
 from pyspark.sql.functions import *

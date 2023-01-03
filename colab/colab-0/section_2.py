@@ -8,13 +8,18 @@ from pyspark.sql import *
 from pyspark.sql.functions import *
 import matplotlib.pyplot as plt
 
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', 
-                    level=logging.INFO, 
-                    handlers=[
-                            logging.FileHandler("./log/section_2.log", "w+"),
-                            logging.StreamHandler()
-                    ]
-)
+def script_filter(record):
+    if record.name != __name__:
+        return False
+    return True
+
+handler = logging.StreamHandler()
+handler.filters = [script_filter]
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+fh = logging.FileHandler('./log/section_2.log')
+logger.setLevel(logging.INFO)
+logger.addHandler(fh)
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -23,7 +28,7 @@ Bombing_Operations = spark.read.load("./data/Bombing_Operations.parquet")
 
 # Step 1: Let's select the relevant columns:
 missions_countries = Bombing_Operations.selectExpr(["to_date(MissionDate) as MissionDate", "ContryFlyingMission"])
-logging.info("Step 1: Let's select the relevant columns: {}".format(missions_countries))
+logger.info("Step 1: Let's select the relevant columns: {}".format(missions_countries))
 
 # The filed MissionDate is converted to a Python date object.
 # Step 2: Now we can group by MissionDate and ContryFlyingMission to get the count:
@@ -31,8 +36,8 @@ missions_by_date = missions_countries\
                     .groupBy(["MissionDate", "ContryFlyingMission"])\
                     .agg(count("*").alias("MissionsCount"))\
                     .sort(asc("MissionDate")).toPandas()
-logging.info("Step 2: Now we can group by MissionDate and ContryFlyingMission to get the count:")
-logging.info('\t'+ missions_by_date.head().to_string().replace('\n', '\n\t'))  # missions_by_date.head() is a Pandas dataframe
+logger.info("Step 2: Now we can group by MissionDate and ContryFlyingMission to get the count:")
+logger.info('\t'+ missions_by_date.head().to_string().replace('\n', '\n\t'))  # missions_by_date.head() is a Pandas dataframe
 
 # Step 3: Now we can plot the content with a different series for each country:
 fig = plt.figure(figsize=(10, 6))
