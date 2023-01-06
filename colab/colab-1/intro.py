@@ -3,20 +3,24 @@
 # Adapted From Stanford CS246
 
 # Step 1: Let's import the libraries we will need
-import pyspark
+import pyspark, logging
 from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark import SparkContext, SparkConf
 
 # Housekeeping: import logging for intermediate results
-import logging
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', 
-                    level=logging.INFO, 
-                    handlers=[
-                            logging.FileHandler("./log/intro.log", "w+"),
-                            logging.StreamHandler()
-                    ]
-)
+def script_filter(record):
+    if record.name != __name__:
+        return False
+    return True
+    
+handler = logging.StreamHandler()
+handler.filters = [script_filter]
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+fh = logging.FileHandler('./log/section_1.log', "w+")
+logger.setLevel(logging.INFO)
+logger.addHandler(fh)
 # End of Housekeeping
 
 # Your Task!
@@ -33,7 +37,7 @@ from pyspark import SparkContext
 import pandas as pd
 
 # create the Spark Session
-spark = SparkSession.builder.getOrCreate()
+spark = SparkSession.builder.config("spark.driver.memory", "4g").getOrCreate()
 
 # create the Spark Context
 sc = spark.sparkContext
@@ -41,7 +45,8 @@ sc = spark.sparkContext
 # YOUR CODE HERE
 
 # To view output of a spark dataframe, you can use the following code:
-# pandas_df = spark_dataframe.toPandas()
-# logging.info("logging output: ")
-# logging.info('\t'+ pandas_df.head().to_string().replace('\n', '\n\t'))  # missions_count_pd is a Pandas dataframe
+# You need to replace YOUR_SPARK_DATAFRAME
+# pandas_df = YOUR_SPARK_DATAFRAME.toPandas()
+# logger.info("logging output: ")
+# logger.info('\t'+ pandas_df.head().to_string().replace('\n', '\n\t'))  # pandas_df is a Pandas dataframe
 # Then you can go to the log folder and check the log file.
