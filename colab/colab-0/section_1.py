@@ -1,6 +1,6 @@
-# Question 1: Which countries are involved and in how many missions?
+# Question 1: How many titles of each type are in the IMDB dataset?
 # Keywords: Dataframe API, SQL, group by, sort
-# check ./log/question_1.log for the output
+# check ./log/section_1.log for the output
 
 ## Housekeeping: setup code to read intermediate dataset
 import pyspark, logging
@@ -16,41 +16,50 @@ handler = logging.StreamHandler()
 handler.filters = [script_filter]
 logger = logging.getLogger(__name__)
 logger.addHandler(handler)
-fh = logging.FileHandler('./log/section_1.log')
+fh = logging.FileHandler('./log/section_1.log', "w+")
 logger.setLevel(logging.INFO)
 logger.addHandler(fh)
 
-spark = SparkSession.builder.getOrCreate()
+spark = SparkSession.builder.config("spark.driver.memory", "4g").getOrCreate()
 
-Bombing_Operations = spark.read.load("./data/Bombing_Operations.parquet")
+Titles = spark.read.csv("data/title.basics.tsv", sep='\t', header=True)
+Principals = spark.read.csv("data/title.principals.tsv", sep='\t', header=True)
 ## End of Housekeeping.
 
-# Step 1: Let's group the missions by ContryFlyingMission and count how many records exist:
-missions_counts = Bombing_Operations.groupBy("ContryFlyingMission")\
-                                    .agg(count("*").alias("MissionsCount"))\
-                                    .sort(desc("MissionsCount"))
+# Step 1: IMDB lists many different kinds of media -- movies, video games, TV episodes, etc. Let's group the IMDB titles by titleType and count how many records exist belonging to each title type:
+title_type_counts = Titles.groupBy("titleType") \
+    .agg(count("*").alias("numTitles")) \
+    .sort(desc("numTitles"))
+
+logger.info("Step 1: {}".format(title_type_counts))
+
 
 # In this case we used the DataFrame API, but we could rewite the groupBy using pure SQL:
-Bombing_Operations.registerTempTable("Bombing_Operations")
+Titles.registerTempTable("Titles")
+
 query = """
-SELECT ContryFlyingMission, count(*) as MissionsCount
-FROM Bombing_Operations
-GROUP BY ContryFlyingMission
-ORDER BY MissionsCount DESC
+SELECT titleType, count(*) as numTitles
+FROM Titles
+GROUP BY titleType
+ORDER BY numTitles DESC
 """
-missions_counts = spark.sql(query)
 
-# Step 2: Check the dataframe. The Dataframe is small enough to be moved to Pandas:
-missions_count_pd = missions_counts.toPandas()
-logger.info("Step 2: Check the dataframe. The Dataframe is small enough to be moved to Pandas:")
-logger.info('\t'+ missions_count_pd.to_string().replace('\n', '\n\t'))  # missions_count_pd is a Pandas dataframe
+title_type_counts = spark.sql(query)
 
-# Step 3: Let's plot a barchart with the number of missions by country:
-pl = missions_count_pd.plot(kind="bar", 
-                            x="ContryFlyingMission", y="MissionsCount", 
-                            figsize=(10, 7), log=True, alpha=0.5, color="olive")
-pl.set_xlabel("Country")
-pl.set_ylabel("Number of Missions (Log scale)")
-pl.set_title("Number of missions by Country")
-## Alt text: the resulting graph shows the number of missions by country on log scale
-## From left to right, it shows United States of America with over 10^6, Vietnam (South) with around 10^6, Laos around 10^4.5, Korea (South) over 10^4, Australia a little over 10^4 but below Korea (South)
+title_type_count_pd = title_type_counts.toPandas()
+
+logger.info("Step 2: Check the title type counts dataframe. The Dataframe is small enough to be moved to Pandas:")
+logger.info('\t'+ title_type_count_pd.head().to_string().replace('\n', '\n\t'))  # this step is a Pandas dataframe
+
+# Step 3: We visualize this title type information by plotting a barchart with the number of titles by type:
+pl = title_type_count_pd.plot(kind="bar",
+                              x="titleType", y="numTitles",
+                              figsize=(10, 7), log=True, alpha=0.5, color="olive")
+
+pl.set_xlabel("Type of Title")
+pl.set_ylabel("Number of Titles (Log scale)")
+pl.set_title("Number of Titles by Type")
+## Alt text: the resulting graph shows the number of titles by type on log scale
+## From left to right, it shows tvEpisode with over 10^6, short with around 10^6, movie around 10^5.5,
+# video and tvSeries a little over 10^5, tvMiniseries, tvSpecial and videoGame a bit below 10^5,
+# tvShort a bit above 10^4 and tvPilot below 10^1

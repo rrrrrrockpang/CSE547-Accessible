@@ -15,12 +15,12 @@ def script_filter(record):
     if record.name != __name__:
         return False
     return True
-
+    
 handler = logging.StreamHandler()
 handler.filters = [script_filter]
 logger = logging.getLogger(__name__)
 logger.addHandler(handler)
-fh = logging.FileHandler('./log/intro.log')
+fh = logging.FileHandler('./log/intro.log', "w+")
 logger.setLevel(logging.INFO)
 logger.addHandler(fh)
 
@@ -38,56 +38,47 @@ conf = SparkConf().set("spark.ui.port", "4050")
 sc = pyspark.SparkContext(conf=conf)
 spark = SparkSession.builder.getOrCreate()
 
-# We are going to study spark under the context of a dataset about the Vietname War
-# President Johnson: What do you think about this Vietnam thing? I’d like to hear you talk a little bit.
-# Senator Russell: Well, frankly, Mr. President, it’s the damn worse mess that I ever saw, and I don’t like to brag and I never have been right many times in my life, but I knew that we were going to get into this sort of mess when we went in there.
-# May 27, 1964
-#![A picture of US soldiers carrying weapons in the farmland in Vietnam]
-# The Vietnam War, also known as the Second Indochina War, and in Vietnam as the Resistance War Against America or simply the American War, was a conflict that occurred in Vietnam, Laos, and Cambodia from 1 November 1955 to the fall of Saigon on 30 April 1975. It was the second of the Indochina Wars and was officially fought between North Vietnam and the government of South Vietnam.
+# We are going to study spark under the context of the IMDB dataset
+# The IMDB dataset describes TV, film, and other media titles listed on the IMDB site.
+#
+# This dataset consists of multiple tables, but we use only two for this lab. The below descriptions are copied from the IMDB dataset [interfaces page](https://www.imdb.com/interfaces/).
+#
+# Title Basic Information [IMDB link](https://datasets.imdbws.com/title.basics.tsv.gz)
+# tconst (string) - alphanumeric unique identifier of the title
+# titleType (string) – the type/format of the title (e.g. movie, short, tvseries, tvepisode, video, etc)
+# primaryTitle (string) – the more popular title / the title used by the filmmakers on promotional materials at the point of release
+# originalTitle (string) - original title, in the original language
+# isAdult (boolean) - 0: non-adult title; 1: adult title
+# startYear (YYYY) – represents the release year of a title. In the case of TV Series, it is the series start year
+# endYear (YYYY) – TV Series end year. ‘\N’ for all other title types
+# runtimeMinutes – primary runtime of the title, in minutes
+# genres (string array) – includes up to three genres associated with the title
+#
+# Principal Cast/Crew [IMDB link](https://datasets.imdbws.com/title.principals.tsv.gz)
+# tconst (string) - alphanumeric unique identifier of the title
+# ordering (integer) – a number to uniquely identify rows for a given titleId
+# nconst (string) - alphanumeric unique identifier of the name/person
+# category (string) - the category of job that person was in
+# job (string) - the specific job title if applicable, else '\N'
+# characters (string) - the name of the character played if applicable, else '\N'
 
-# Description of the dataset: the dataset describes all the air force operation in during the Vietnam War.
-# The first dataset: Bombing_Operations dataset:
-## AirCraft: Aircraft model (example: EC-47)
-## ContryFlyingMission: Country
-## MissionDate: Date of the mission
-## OperationSupported: Supported War operation (example: Operation Rolling Thunder)
-## PeriodOfDay: Day or night
-## TakeoffLocation: Take off airport
-## TimeOnTarget
-## WeaponType
-## WeaponsLoadedWeight
-
-# The second dataset: Aircraft_Glossary dataset:
-## AirCraft: Aircraft model (example: EC-47)
-## AirCraftName
-## AirCraftType
-
-# Dataset Information:
-# THOR is a painstakingly cultivated database of historic aerial bombings from World War I through Vietnam. THOR has already proven useful in finding unexploded ordnance in Southeast Asia and improving Air Force combat tactics: https://www.kaggle.com/usaf/vietnam-war-bombing-operations
 
 ## Step 3: Load the datasets
-Bombing_Operations = spark.read.json("./data/Bombing_Operations.json.gz")
-Aircraft_Glossary = spark.read.json("./data/Aircraft_Glossary.json.gz")
+Titles = spark.read.csv("data/title.basics.tsv", sep='\t', header=True)
+Principals = spark.read.csv("data/title.principals.tsv", sep='\t', header=True)
 
 ## Step 4: check the schema. (check logging)
-bo = Bombing_Operations._jdf.schema().treeString()
-ag = Aircraft_Glossary._jdf.schema().treeString()
-logger.info("Step 4: {}".format(bo))
-logger.info("Step 4: {}".format(ag))
-# You can also show the schema by Bombing_Operations.printSchema() function but the output is not a string.
+logger.info("Step 4: {}".format(Titles._jdf.schema().treeString()))
+logger.info("Step 4: {}".format(Principals._jdf.schema().treeString()))
+# You can also show the schema by Titles.printSchema() function but the output is not a string.
 
-# Step 5: get a sample with take(). (check logging)
-logger.info("Step 5: {}".format(Bombing_Operations.take(3)))
+# Step 5: take() returns a sample of rows (check logging)
+logger.info("Step 5: {}".format(pd.DataFrame(Titles.take(3)).to_string().replace('\n', '\n\t')))
 
-# Step 6: get a formatted sample in table format with a similar effect as take(). (check logging)
-formatted_Aircraft_Glossary = Aircraft_Glossary.limit(10).toPandas()
+# Step 6: show() returns a formatted sample of rows. (check logging)
 logger.info("Step 6: ")
-logger.info('\t'+ formatted_Aircraft_Glossary.to_string().replace('\n', '\n\t'))  # formatted_Aircraft_Glossary is the dataframe
+logger.info(f"In total there are {Titles.count():,d} IMDB titles.")
 
-# Step 7: get the number of rows in the dataset
-Bombing_Operations.count()
-logger.info("Step 7: In total there are {} operations".format(Bombing_Operations.count()))
-
-# Housekeeping: Save dataset
-Bombing_Operations.write.mode("overwrite").parquet("./data/Bombing_Operations.parquet")
-Aircraft_Glossary.write.mode("overwrite").parquet("./data/Aircraft_Glossary.parquet")
+# Step 7: We'll do a little bit of preprocessing here to remove any titles with a null title type or start year field.
+Titles = Titles.replace({'\\N': None}).dropna(subset=['titleType', 'startYear'])
+logger.info(f"Step 7: After preprocessing, there are {Titles.count():,d} IMDB titles.")
