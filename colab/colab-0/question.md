@@ -1,10 +1,10 @@
-# Answer the questions after finishing the colab activity: 3 points in total 
+# Answer the questions after finishing the colab activity: 2 points in total 
 
 # Q1 (1 point): Of the functions in Colab 0, what is the name of the most commonly used spark function for combining the values of an RDD grouping by a common key?
 
 Your answer: 
 
-# Q2 (1 point): In Section 4, what was the MissionCount for "Fighter Jet Bomber"?
+# Q2 (1 point): In Section Q4, what was the numPrincipals for "cinematographer"?
 
 Your answer:
 
@@ -14,26 +14,7 @@ Your answer:
 
 Your answer: 
 
-## Level of effort - please rate Colab 1 on basis of how hard you found it.
 
-Much too easy
-Somewhat too easy
-About right
-Somewhat too hard
-Much too hard
+Please take some time to fill out the feedback form: 
 
-Your answer: 
-
-## Contribution to learning - please rate Colab 1 on basis of how valuable you found it in advancing your learning?
-
-Not at all useful
-Slightly useful
-Somewhat useful
-Very useful
-Extremely useful
-
-Your answer:
-
-## Suggestions for Colab 1 improvements
-
-Your answer:
+link: https://tinyurl.com/cse547-feedback-form
